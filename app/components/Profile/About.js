@@ -73,7 +73,7 @@ function About(props) {
         </div>
         {/* ----------------------------------------------------------------------*/}
         {/* About Me */}
-        <PapperBlock title="About Me" icon="ion-ios-contact-outline" whiteBg noMargin desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sed urna in justo euismod condimentum.">
+        <PapperBlock title="Acerca de mi" icon="ion-ios-contact-outline" whiteBg noMargin desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sed urna in justo euismod condimentum.">
           <Divider className={classes.divider} />
           <List dense className={classes.profileList}>
             <ListItem>

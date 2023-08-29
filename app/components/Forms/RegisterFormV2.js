@@ -55,6 +55,14 @@ function RegisterFormV2(props) {
     submitting,
     deco
   } = props;
+
+  const onSubmitFormRegister = (values) => {
+    console.log('Form data submitted:', values);
+    // Aquí puedes enviar los valores a tu base de datos
+    // por ejemplo, usando una función para hacer una solicitud HTTP
+    // o ejecutando alguna acción de Redux para manejar el estado global
+  };
+
   return (
     <Paper className={classNames(classes.sideWrap, deco && classes.petal)}>
       <div className={classes.topBar}>
@@ -70,9 +78,6 @@ function RegisterFormV2(props) {
       <Typography variant="h4" className={classes.title} gutterBottom>
         Registro
       </Typography>
-      {/* <Typography variant="caption" className={classes.subtitle} gutterBottom align="center">
-        Lorem ipsum dolor sit amet
-      </Typography> */}
       <Tabs
         value={tab}
         onChange={handleChangeTab}
@@ -86,7 +91,8 @@ function RegisterFormV2(props) {
       </Tabs>
       {tab === 0 && (
         <section>
-          <form onSubmit={handleSubmit}>
+          {/* <form onSubmit={handleSubmit}> */}
+          <form onSubmit={handleSubmit(onSubmitFormRegister)}>
             <div>
               <FormControl className={classes.formControl}>
                 <Field
@@ -148,7 +154,12 @@ function RegisterFormV2(props) {
               <a href="#" className={classes.link}>Terms &amp; Condition</a>
             </div>
             <div className={classes.btnArea}>
-              <Button variant="contained" fullWidth color="primary" type="submit">
+              <Button
+                variant="contained"
+                fullWidth
+                color="primary"
+                type="submit"
+              >
                 Continue
                 <ArrowForward className={classNames(classes.rightIcon, classes.iconSmall)} disabled={submitting || pristine} />
               </Button>
