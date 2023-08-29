@@ -60,19 +60,19 @@ function RegisterFormV2(props) {
       <div className={classes.topBar}>
         <NavLink to="/" className={classes.brand}>
           <img src={logo} alt={brand.name} />
-          {brand.name}
+          QR Payment
         </NavLink>
         <Button size="small" className={classes.buttonLink} component={LinkBtn} to="/login-v2">
           <Icon className={classes.icon}>arrow_forward</Icon>
-          Already have account ?
+          Ya tiene una cuenta?
         </Button>
       </div>
       <Typography variant="h4" className={classes.title} gutterBottom>
-        Register
+        Registro
       </Typography>
-      <Typography variant="caption" className={classes.subtitle} gutterBottom align="center">
+      {/* <Typography variant="caption" className={classes.subtitle} gutterBottom align="center">
         Lorem ipsum dolor sit amet
-      </Typography>
+      </Typography> */}
       <Tabs
         value={tab}
         onChange={handleChangeTab}
@@ -81,8 +81,8 @@ function RegisterFormV2(props) {
         centered
         className={classes.tab}
       >
-        <Tab label="With Email" />
-        <Tab label="With Social Media" />
+        <Tab label="Con Email" />
+        <Tab label="Con Redes Sociales" />
       </Tabs>
       {tab === 0 && (
         <section>

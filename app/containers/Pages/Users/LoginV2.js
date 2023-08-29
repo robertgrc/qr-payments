@@ -36,10 +36,10 @@ function LoginV2(props) {
         <Hidden smDown>
           <div className={classes.opening}>
             <Typography variant="h3" component="h1" className={classes.opening} gutterBottom>
-              Welcome to&nbsp;
-              {brand.name}
+             Bienvenido a QR Payment
+              {/* {brand.name} */}
             </Typography>
-            <Typography variant="h6" component="p" className={classes.subpening}>Please sign in to continue</Typography>
+            <Typography variant="h6" component="p" className={classes.subpening}>Por favor inicie sesión para continuar</Typography>
           </div>
         </Hidden>
         <div className={classes.sideFormWrap}>

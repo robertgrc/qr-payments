@@ -35,8 +35,8 @@ function RegisterV2(props) {
       <div className={classes.containerSide}>
         <Hidden smDown>
           <div className={classes.opening}>
-            <Typography variant="h3" component="h1" className={classes.opening} gutterBottom>Hi...nice to meet you</Typography>
-            <Typography variant="h6" component="p" className={classes.subpening}>Just register to join with us</Typography>
+            <Typography variant="h3" component="h1" className={classes.opening} gutterBottom>Hola... encantando en conocerte</Typography>
+            <Typography variant="h6" component="p" className={classes.subpening}>Regístrate para unirte a nosotros.</Typography>
           </div>
         </Hidden>
         <div className={classes.sideFormWrap}>

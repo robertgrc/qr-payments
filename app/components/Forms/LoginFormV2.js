@@ -60,19 +60,19 @@ function LoginFormV2(props) {
       <div className={classes.topBar}>
         <NavLink to="/" className={classes.brand}>
           <img src={logo} alt={brand.name} />
-          {brand.name}
+          QR Payment
         </NavLink>
         <Button size="small" className={classes.buttonLink} component={LinkBtn} to="/register-v2">
           <Icon className={classes.icon}>arrow_forward</Icon>
-          Create new account
+          Crear nueva Cuenta
         </Button>
       </div>
       <Typography variant="h4" className={classes.title} gutterBottom>
-        Sign In
+        Iniciar Sesión
       </Typography>
-      <Typography variant="caption" className={classes.subtitle} gutterBottom align="center">
+      {/* <Typography variant="caption" className={classes.subtitle} gutterBottom align="center">
         Lorem ipsum dolor sit amet
-      </Typography>
+      </Typography> */}
       <section className={classes.socmedSideLogin}>
         <div className={classes.btnArea}>
           <Button variant="outlined" size="small" className={classes.redBtn} type="button">
@@ -88,7 +88,7 @@ function LoginFormV2(props) {
             Socmed 3
           </Button>
         </div>
-        <ContentDivider content="Or sign in with email" />
+        <ContentDivider content="o inicia sesión con correo electrónico" />
       </section>
       <section className={classes.pageFormSideWrap}>
         <form onSubmit={handleSubmit}>
