@@ -55,6 +55,12 @@ function LoginFormV2(props) {
     submitting,
     deco,
   } = props;
+
+  const onSubmitFormLogin = (values) => {
+    console.log('Form data submitted:', values);
+  };
+
+
   return (
     <Paper className={classNames(classes.sideWrap, deco && classes.petal)}>
       <div className={classes.topBar}>
@@ -70,9 +76,6 @@ function LoginFormV2(props) {
       <Typography variant="h4" className={classes.title} gutterBottom>
         Iniciar Sesión
       </Typography>
-      {/* <Typography variant="caption" className={classes.subtitle} gutterBottom align="center">
-        Lorem ipsum dolor sit amet
-      </Typography> */}
       <section className={classes.socmedSideLogin}>
         <div className={classes.btnArea}>
           <Button variant="outlined" size="small" className={classes.redBtn} type="button">
@@ -91,7 +94,8 @@ function LoginFormV2(props) {
         <ContentDivider content="o inicia sesión con correo electrónico" />
       </section>
       <section className={classes.pageFormSideWrap}>
-        <form onSubmit={handleSubmit}>
+        {/* <form onSubmit={handleSubmit}> */}
+        <form onSubmit={handleSubmit(onSubmitFormLogin)}>
           <div>
             <FormControl className={classes.formControl}>
               <Field
