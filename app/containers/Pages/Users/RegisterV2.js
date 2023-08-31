@@ -11,6 +11,7 @@ import styles from 'dan-components/Forms/user-jss';
 import axios from 'axios';
 
 function RegisterV2(props) {
+  const history = useHistory();
   const [valueForm, setValueForm] = useState(null);
 
   const submitForm = values => {
@@ -30,6 +31,7 @@ function RegisterV2(props) {
           // Aquí puedes manejar la respuesta de la API si es necesario
           console.log('Response from API:', response.data);
           // window.location.href = '/app';
+          history.push('login-v2');
         })
         .catch(error => {
           console.error('Error:', error);
