@@ -56,12 +56,9 @@ function RegisterFormV2(props) {
     deco
   } = props;
 
-  const onSubmitFormRegister = (values) => {
-    console.log('Form data submitted:', values);
-    // Aquí puedes enviar los valores a tu base de datos
-    // por ejemplo, usando una función para hacer una solicitud HTTP
-    // o ejecutando alguna acción de Redux para manejar el estado global
-  };
+  // const onSubmitFormRegister = (values) => {
+  //   console.log('Form data submitted:', values);
+  // };
 
   return (
     <Paper className={classNames(classes.sideWrap, deco && classes.petal)}>
@@ -91,8 +88,8 @@ function RegisterFormV2(props) {
       </Tabs>
       {tab === 0 && (
         <section>
-          {/* <form onSubmit={handleSubmit}> */}
-          <form onSubmit={handleSubmit(onSubmitFormRegister)}>
+          {/* <form onSubmit={handleSubmit(onSubmitFormRegister)}> */}
+          <form onSubmit={handleSubmit}>
             <div>
               <FormControl className={classes.formControl}>
                 <Field

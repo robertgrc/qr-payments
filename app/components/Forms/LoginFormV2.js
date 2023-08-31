@@ -56,9 +56,9 @@ function LoginFormV2(props) {
     deco,
   } = props;
 
-  const onSubmitFormLogin = (values) => {
-    console.log('Form data submitted:', values);
-  };
+  // const onSubmitFormLogin = (values) => {
+  //   console.log('Form data submitted:', values);
+  // };
 
 
   return (
@@ -94,8 +94,8 @@ function LoginFormV2(props) {
         <ContentDivider content="o inicia sesión con correo electrónico" />
       </section>
       <section className={classes.pageFormSideWrap}>
-        {/* <form onSubmit={handleSubmit}> */}
-        <form onSubmit={handleSubmit(onSubmitFormLogin)}>
+        {/* <form onSubmit={handleSubmit(onSubmitFormLogin)}> */}
+        <form onSubmit={handleSubmit}>
           <div>
             <FormControl className={classes.formControl}>
               <Field
