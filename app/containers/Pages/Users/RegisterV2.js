@@ -11,7 +11,7 @@ import brand from 'dan-api/dummy/brand';
 import { RegisterFormV2 } from 'dan-components';
 import styles from 'dan-components/Forms/user-jss';
 import axios from 'axios';
-import Swal from 'sweetalert2';
+import { showErrorMessage, showSuccessMessage } from '../../../helpers/messageHelpers';
 function RegisterV2(props) {
   const history = useHistory();
   const [valueForm, setValueForm] = useState(null);
@@ -32,17 +32,23 @@ function RegisterV2(props) {
         .then(response => {
           // Aquí puedes manejar la respuesta de la API si es necesario
           console.log('Response from API:', response.data);
-          // window.location.href = '/app';
-          history.push('login-v2');
+
+          if (response.data.ok) {
+            // Verificar que la respuesta indique éxito y mostrar mensaje de éxito
+            showSuccessMessage(response.data.msg);
+            history.push('login-v2');
+          } else {
+            // En caso de que la respuesta no indique éxito, manejarlo según sea necesario
+            console.error('Respuesta del servidor no exitosa');
+          }
         })
         .catch(error => {
           if (error.response) {
-            // El servidor ha respondido con un estado de error
             console.error('Error response from server:', error.response.data.errors);
-            // Extrae los mensajes de error de la respuesta del servidor
+            // Extraer los mensajes de error de la respuesta del servidor
             const errorMessages = error.response.data.errors;
             let errorMessage = 'Hubo un error en la solicitud:\n\n';
-            // Verifica si la respuesta contiene mensajes de error de campo
+            // Verificar si la respuesta contiene mensajes de error de campo
             if (errorMessages) {
               for (const fieldName in errorMessages) {
                 if (errorMessages.hasOwnProperty(fieldName)) {
@@ -50,21 +56,18 @@ function RegisterV2(props) {
                 }
               }
             } else if (error.response.data.msg) {
-              // Si no hay mensajes de error de campo, verifica si hay un mensaje de error general
+              // Si no hay mensajes de error de campo, verificar si hay un mensaje de error general
               errorMessage = error.response.data.msg;
             }
-            // Muestra el mensaje de error con SweetAlert2
-            Swal.fire({
-              title: 'Error',
-              text: errorMessage,
-              icon: 'error',
-            });
+            // Mostrar el mensaje de error con la función de ayuda
+            showErrorMessage(errorMessage);
           } else if (error.request) {
             console.error('No se recibió respuesta del servidor');
           } else {
             console.error('Request error:', error.message);
           }
         });
+      // window.location.href = '/app';
     }, 500); // simulate server latency
   };
 
