@@ -56,10 +56,6 @@ function RegisterFormV2(props) {
     deco
   } = props;
 
-  // const onSubmitFormRegister = (values) => {
-  //   console.log('Form data submitted:', values);
-  // };
-
   return (
     <Paper className={classNames(classes.sideWrap, deco && classes.petal)}>
       <div className={classes.topBar}>

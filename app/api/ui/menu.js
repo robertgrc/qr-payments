@@ -15,14 +15,14 @@ module.exports = [
   },
   {
     key: "pages",
-    name: "Pages",
+    name: "Auth Page",
     icon: "ion-ios-paper-outline",
     child: [
-      {
-        key: "account_page",
-        name: "Auth Page",
-        title: true,
-      },
+      // {
+      //   key: "account_page",
+      //   name: "Auth Page",
+      //   title: true,
+      // },
       // {
       //   key: "login",
       //   name: "Login",
@@ -31,7 +31,7 @@ module.exports = [
       // },
       {
         key: "login2",
-        name: "Login Ver.2",
+        name: "Login",
         link: "/login-v2",
         icon: "ion-ios-contact-outline",
       },
@@ -49,7 +49,7 @@ module.exports = [
       // },
       {
         key: "register2",
-        name: "Register Ver.2",
+        name: "Register",
         link: "/register-v2",
         icon: "ion-ios-key-outline",
       },

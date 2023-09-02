@@ -1,3 +1,5 @@
+/* eslint-disable no-prototype-builtins */
+/* eslint-disable no-restricted-syntax */
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import PropTypes from 'prop-types';
@@ -9,7 +11,7 @@ import brand from 'dan-api/dummy/brand';
 import { RegisterFormV2 } from 'dan-components';
 import styles from 'dan-components/Forms/user-jss';
 import axios from 'axios';
-
+import Swal from 'sweetalert2';
 function RegisterV2(props) {
   const history = useHistory();
   const [valueForm, setValueForm] = useState(null);
@@ -34,10 +36,35 @@ function RegisterV2(props) {
           history.push('login-v2');
         })
         .catch(error => {
-          console.error('Error:', error);
-          // Aquí puedes manejar el error si ocurre
+          if (error.response) {
+            // El servidor ha respondido con un estado de error
+            console.error('Error response from server:', error.response.data.errors);
+            // Extrae los mensajes de error de la respuesta del servidor
+            const errorMessages = error.response.data.errors;
+            let errorMessage = 'Hubo un error en la solicitud:\n\n';
+            // Verifica si la respuesta contiene mensajes de error de campo
+            if (errorMessages) {
+              for (const fieldName in errorMessages) {
+                if (errorMessages.hasOwnProperty(fieldName)) {
+                  errorMessage += `${errorMessages[fieldName].msg}\n`;
+                }
+              }
+            } else if (error.response.data.msg) {
+              // Si no hay mensajes de error de campo, verifica si hay un mensaje de error general
+              errorMessage = error.response.data.msg;
+            }
+            // Muestra el mensaje de error con SweetAlert2
+            Swal.fire({
+              title: 'Error',
+              text: errorMessage,
+              icon: 'error',
+            });
+          } else if (error.request) {
+            console.error('No se recibió respuesta del servidor');
+          } else {
+            console.error('Request error:', error.message);
+          }
         });
-      // window.location.href = '/app';
     }, 500); // simulate server latency
   };
 
