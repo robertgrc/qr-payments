@@ -160,53 +160,53 @@ module.exports = [
       // },
     ],
   },
-  // {
-  //   key: "tables",
-  //   name: "Tables",
-  //   icon: "ion-ios-grid-outline",
-  //   child: [
-  //     {
-  //       key: "common_table",
-  //       name: "Common Table",
-  //       title: true,
-  //     },
-  //     {
-  //       key: "basic_table",
-  //       name: "Basic",
-  //       link: "/app/tables/basic-table",
-  //       icon: "ion-ios-grid-outline",
-  //     },
-  //     {
-  //       key: "data_table",
-  //       name: "Data Tables",
-  //       link: "/app/tables/data-table",
-  //       icon: "ion-ios-cube-outline",
-  //     },
-  //     {
-  //       key: "table_playground",
-  //       name: "Table Playgound",
-  //       link: "/app/tables/table-playground",
-  //       icon: "ion-ios-list-box-outline",
-  //     },
-  //     {
-  //       key: "redux_table",
-  //       name: "Redux Table",
-  //       title: true,
-  //     },
-  //     {
-  //       key: "editable_cell",
-  //       name: "Table Edit",
-  //       link: "/app/tables/editable-cell",
-  //       icon: "ion-ios-cube-outline",
-  //     },
-  //     {
-  //       key: "tree_table",
-  //       name: "Tree Table",
-  //       link: "/app/tables/tree-table",
-  //       icon: "ion-ios-git-merge",
-  //     },
-  //   ],
-  // },
+  {
+    key: "tables",
+    name: "Tables",
+    icon: "ion-ios-grid-outline",
+    child: [
+      // {
+      //   key: "common_table",
+      //   name: "Common Table",
+      //   title: true,
+      // },
+      // {
+      //   key: "basic_table",
+      //   name: "Basic",
+      //   link: "/app/tables/basic-table",
+      //   icon: "ion-ios-grid-outline",
+      // },
+      {
+        key: "data_table",
+        name: "Data Tables",
+        link: "/app/tables/data-table",
+        icon: "ion-ios-cube-outline",
+      },
+      // {
+      //   key: "table_playground",
+      //   name: "Table Playgound",
+      //   link: "/app/tables/table-playground",
+      //   icon: "ion-ios-list-box-outline",
+      // },
+      // {
+      //   key: "redux_table",
+      //   name: "Redux Table",
+      //   title: true,
+      // },
+      // {
+      //   key: "editable_cell",
+      //   name: "Table Edit",
+      //   link: "/app/tables/editable-cell",
+      //   icon: "ion-ios-cube-outline",
+      // },
+      // {
+      //   key: "tree_table",
+      //   name: "Tree Table",
+      //   link: "/app/tables/tree-table",
+      //   icon: "ion-ios-git-merge",
+      // },
+    ],
+  },
   // {
   //   key: "forms",
   //   name: "Forms Buttons",

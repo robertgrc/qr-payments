@@ -25,16 +25,10 @@ function AdvancedTable() {
         <meta property="twitter:title" content={title} />
         <meta property="twitter:description" content={description} />
       </Helmet>
-      <PapperBlock whiteBg icon="ion-ios-clipboard-outline" title="Basic Data Table" desc="This is default example from Material UI. It Demonstrates the use of Checkbox and clickable rows for selection, with a custom Toolbar. It uses the TableSortLabel component to help style column headings.">
-        <div>
-          <AdvTableDemo />
-          <SourceReader componentName={docSrc + 'AdvTableDemo.js'} />
-        </div>
-      </PapperBlock>
-      <PapperBlock whiteBg icon="ion-ios-clipboard-outline" title="Advanced Data Table" desc="It uses npm mui-datatables. It's easy to use, you just describe columns and data collection. After that it will magically build features such as filtering, viewing / hiding columns, exporting to CSV downloads, printing, and more.">
+      <PapperBlock whiteBg icon="ion-ios-clipboard-outline" title="Tabla de Usuarios" desc="Descripcion de Usuarios y Estados de sus aportes">
         <div>
           <AdvFilter />
-          <SourceReader componentName={docSrc + 'AdvFilter.js'} />
+          {/* <SourceReader componentName={docSrc + 'AdvFilter.js'} /> */}
         </div>
       </PapperBlock>
     </div>
