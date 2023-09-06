@@ -25,7 +25,9 @@ function RegisterV2(props) {
       const postData = {
         name: values.get('name'),
         email: values.get('email'),
-        password: values.get('password')
+        password: values.get('password'),
+        state: false,
+        salario: 70,
       };
       // Realizar la solicitud POST con Axios
       axios.post('http://localhost:4000/api/auth/new', postData)

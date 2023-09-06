@@ -1,9 +1,13 @@
-import React from 'react';
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+import React, { useState, useEffect } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Chip from '@material-ui/core/Chip';
 import MUIDataTable from 'mui-datatables';
+import { Button } from '@material-ui/core';
+const axios = require('axios');
 
 const styles = theme => ({
   table: {
@@ -32,98 +36,82 @@ const styles = theme => ({
 function AdvFilter(props) {
   const columns = [
     {
-      name: 'Name',
+      name: 'Nombre',
       options: {
-        filter: true
-      }
+        filter: true,
+        customBodyRender: (value, tableMeta) => (
+          <span onClick={() => handleEdit(tableMeta.rowIndex, tableMeta.columnIndex)}>
+            {value}
+          </span>
+        ),
+      },
     },
     {
-      name: 'Title',
+      name: 'Email',
       options: {
         filter: true,
       }
     },
     {
-      name: 'KPI',
+      name: 'Id',
       options: {
-        filter: false,
-        customBodyRender: (value) => (
-          <LinearProgress variant="determinate" color="secondary" value={value} />
-        )
+        filter: true,
       }
     },
     {
-      name: 'Status',
+      name: 'Estado',
       options: {
         filter: true,
-        customBodyRender: (value) => {
-          if (value === 'active') {
-            return (<Chip label="Active" color="secondary" />);
-          }
-          if (value === 'non-active') {
-            return (<Chip label="Non Active" color="primary" />);
-          }
-          return (<Chip label="Unknown" />);
-        }
       }
     },
     {
-      name: 'Salary',
+      name: 'Salario',
       options: {
         filter: true,
-        customBodyRender: (value) => {
-          const nf = new Intl.NumberFormat('en-US', {
-            style: 'currency',
-            currency: 'USD',
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2
-          });
-
-          return nf.format(value);
-        }
       }
     },
   ];
 
-  const data = [
-    ['Gabby George', 'Business Analyst', 30, 'active', 100000],
-    ['Aiden Lloyd', 'Business Consultant', 55, 'active', 200000],
-    ['Jaden Collins', 'Attorney', 27, 'non-active', 500000],
-    ['Franky Rees', 'Business Analyst', 90, 'active', 50000],
-    ['Aaren Rose', 'Business Consultant', 28, 'unknown', 75000],
-    ['Blake Duncan', 'Business Management Analyst', 65, 'active', 94000],
-    ['Frankie Parry', 'Agency Legal Counsel', 71, 'non-active', 210000],
-    ['Lane Wilson', 'Commercial Specialist', 19, 'active', 65000],
-    ['Robin Duncan', 'Business Analyst', 20, 'unknown', 77000],
-    ['Mel Brooks', 'Business Consultant', 89, 'active', 135000],
-    ['Harper White', 'Attorney', 52, 'non-active', 420000],
-    ['Kris Humphrey', 'Agency Legal Counsel', 80, 'active', 150000],
-    ['Frankie Long', 'Industrial Analyst', 31, 'active', 170000],
-    ['Brynn Robbins', 'Business Analyst', 22, 'active', 90000],
-    ['Justice Mann', 'Business Consultant', 76, 'non-active', 33000],
-    ['Addison Navarro', 'Business Management Analyst', 50, 'non-active', 295000],
-    ['Jesse Welch', 'Agency Legal Counsel', 28, 'active', 100000],
-    ['Eli Mejia', 'Commercial Specialist', 65, 'active', 400000],
-    ['Gene Leblanc', 'Industrial Analyst', 100, 'active', 110000],
-    ['Danny Leon', 'Computer Scientist', 60, 'non-active', 220000],
-    ['Lane Lee', 'Corporate Counselor', 52, 'unknown', 180000],
-    ['Jesse Hall', 'Business Analyst', 44, 'active', 99000],
-    ['Danni Hudson', 'Agency Legal Counsel', 37, 'active', 90000],
-    ['Terry Macdonald', 'Commercial Specialist', 39, 'active', 140000],
-    ['Justice Mccarthy', 'Attorney', 26, 'active', 330000],
-    ['Silver Carey', 'Computer Scientist', 10, 'active', 250000],
-    ['Franky Miles', 'Industrial Analyst', 49, 'active', 190000],
-    ['Glen Nixon', 'Corporate Counselor', 15, 'non-active', 80000],
-    ['Gabby Strickland', 'Business Process Consultant', 26, 'unknown', 45000],
-    ['Mason Ray', 'Computer Scientist', 39, 'active', 142000]
-  ];
+  const [data, setData] = useState([]);
+
+  const getUsuarios = async () => {
+    try {
+      const response = await axios.get('https://hotelapp-back.onrender.com/api/comandaRestaurante');
+      // Accede a los datos de la respuesta
+      const registros = response.data.registros;
+      const datos = registros.map((registro) => [
+        registro.nombrePax,
+        registro.fechaActual,
+        registro.idReserva,
+        registro.mesero,
+        registro.numeroHabitacion,
+      ]);
+      console.log(datos);
+      // setData(datos.slice(0, 10));
+      // return datos;
+      setData(datos);
+    } catch (error) {
+      console.error('Error al realizar la solicitud GET:', error);
+    }
+  };
+
+  const handleEdit = (rowIndex, columnIndex) => {
+    // Implementa la lógica de edición aquí.
+    // Puedes abrir un cuadro de diálogo de edición o un formulario y actualizar los datos.
+    console.log(`Editando fila ${rowIndex}, columna ${columnIndex}`);
+  };
+
+  useEffect(() => {
+    getUsuarios();
+  }, []);
 
   const options = {
     filterType: 'dropdown',
     responsive: 'vertical',
     print: true,
     rowsPerPage: 10,
-    page: 0
+    page: 0,
+    selectableRowsHideCheckboxes: true,
   };
 
   const { classes } = props;
@@ -131,11 +119,12 @@ function AdvFilter(props) {
   return (
     <div className={classes.table}>
       <MUIDataTable
-        title="Employee list"
+        title="Lista de Usuarios"
         data={data}
         columns={columns}
         options={options}
       />
+      {/* <Button onClick={getUsuarios}>Cargar Usuarios</Button> */}
     </div>
   );
 }
