@@ -15,7 +15,6 @@ import PapperBlock from '../PapperBlock/PapperBlock';
 
 const AboutUser = () => (
   <div>
-    <h1>AboutUser</h1>
     {/* About Me */}
     <PapperBlock title="Robert Rogriguez" icon="ion-ios-contact-outline" whiteBg noMargin desc="Informacion acerca de mi">
       <Divider />
