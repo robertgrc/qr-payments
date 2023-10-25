@@ -7,9 +7,6 @@ import { NavLink } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form/immutable';
 import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import ArrowForward from '@material-ui/icons/ArrowForward';
@@ -19,7 +16,7 @@ import People from '@material-ui/icons/People';
 import Icon from '@material-ui/core/Icon';
 import brand from 'dan-api/dummy/brand';
 import logo from 'dan-images/logo.svg';
-import { TextFieldRedux, CheckboxRedux } from './ReduxFormMUI';
+import { TextFieldRedux } from './ReduxFormMUI';
 import styles from './user-jss';
 
 // validation functions
@@ -40,14 +37,8 @@ const passwordsMatch = (value, allValues) => {
 const LinkBtn = React.forwardRef(function LinkBtn(props, ref) { // eslint-disable-line
   return <NavLink to={props.to} {...props} innerRef={ref} />; // eslint-disable-line
 });
-
 function RegisterFormV2(props) {
-  const [tab, setTab] = useState(0);
-
-  const handleChangeTab = (event, value) => {
-    setTab(value);
-  };
-
+  const [tab] = useState(0);
   const {
     classes,
     handleSubmit,
@@ -59,7 +50,7 @@ function RegisterFormV2(props) {
   return (
     <Paper className={classNames(classes.sideWrap, deco && classes.petal)}>
       <div className={classes.topBar}>
-        <NavLink to="/" className={classes.brand}>
+        <NavLink to="/register-v2" className={classes.brand}>
           <img src={logo} alt={brand.name} />
           QR Payment
         </NavLink>
@@ -71,17 +62,6 @@ function RegisterFormV2(props) {
       <Typography variant="h4" className={classes.title} gutterBottom>
         Registro
       </Typography>
-      <Tabs
-        value={tab}
-        onChange={handleChangeTab}
-        indicatorColor="secondary"
-        textColor="secondary"
-        centered
-        className={classes.tab}
-      >
-        <Tab label="Con Email" />
-        <Tab label="Con Redes Sociales" />
-      </Tabs>
       {tab === 0 && (
         <section>
           {/* <form onSubmit={handleSubmit(onSubmitFormRegister)}> */}
@@ -136,15 +116,6 @@ function RegisterFormV2(props) {
                   className={classes.field}
                 />
               </FormControl>
-            </div>
-            <div>
-              <FormControlLabel
-                control={(
-                  <Field name="checkbox" component={CheckboxRedux} required className={classes.agree} />
-                )}
-                label="Agree with"
-              />
-              <a href="#" className={classes.link}>Terms &amp; Condition</a>
             </div>
             <div className={classes.btnArea}>
               <Button

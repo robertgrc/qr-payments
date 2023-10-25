@@ -1,12 +1,12 @@
+/* eslint-disable no-use-before-define */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { useState, useEffect } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
-import LinearProgress from '@material-ui/core/LinearProgress';
-import Chip from '@material-ui/core/Chip';
 import MUIDataTable from 'mui-datatables';
-import { Button } from '@material-ui/core';
+import Chip from '@material-ui/core/Chip';
+// import { Button } from '@material-ui/core';
 const axios = require('axios');
 
 const styles = theme => ({
@@ -62,8 +62,42 @@ function AdvFilter(props) {
       name: 'Estado',
       options: {
         filter: true,
+        customBodyRender: (value) => {
+          const handleClick = () => {
+            // Aquí puedes realizar alguna acción cuando se hace clic en el Chip.
+            console.log('Chip clickeado');
+          };
+          if (value === true) {
+            return (
+              <Chip label="Active" color="secondary" onClick={handleClick} />
+            );
+          }
+          if (value === false) {
+            return (
+              <Chip label="Non Active" color="primary" onClick={handleClick} />
+            );
+          }
+          return (
+            <Chip label="Unknown" onClick={handleClick} />
+          );
+        }
       }
     },
+    // {
+    //   name: 'Estado',
+    //   options: {
+    //     filter: true,
+    //     customBodyRender: (value) => {
+    //       if (value === true) {
+    //         return (<Chip label="Active" color="secondary" />);
+    //       }
+    //       if (value === false) {
+    //         return (<Chip label="Non Active" color="primary" />);
+    //       }
+    //       return (<Chip label="Unknown" />);
+    //     }
+    //   }
+    // },
     {
       name: 'Salario',
       options: {
@@ -73,23 +107,24 @@ function AdvFilter(props) {
   ];
 
   const [data, setData] = useState([]);
-
   const getUsuarios = async () => {
     try {
-      const response = await axios.get('https://hotelapp-back.onrender.com/api/comandaRestaurante');
+      //     const response = await axios.get('https://hotelapp-back.onrender.com/api/comandaRestaurante');
+      const response = await axios.get('http://localhost:4000/api/auth/obtenerUsuarios');
       // Accede a los datos de la respuesta
-      const registros = response.data.registros;
+      const registros = response.data.usuarios;
       const datos = registros.map((registro) => [
-        registro.nombrePax,
-        registro.fechaActual,
-        registro.idReserva,
-        registro.mesero,
-        registro.numeroHabitacion,
+        registro.name,
+        registro.name,
+        registro.uid,
+        registro.state,
+        registro.salario,
       ]);
       console.log(datos);
       // setData(datos.slice(0, 10));
       // return datos;
       setData(datos);
+      console.log(datos);
     } catch (error) {
       console.error('Error al realizar la solicitud GET:', error);
     }
@@ -111,7 +146,18 @@ function AdvFilter(props) {
     print: true,
     rowsPerPage: 10,
     page: 0,
-    selectableRowsHideCheckboxes: true,
+    selectableRows: 'single',
+    // selectableRowsHideCheckboxes: true,
+    // onRowSelectionChange: (currentRowsSelected) => {
+    //   if (currentRowsSelected.length > 0) {
+    //     const selectedRowIndex = currentRowsSelected[0]; // Obten el índice de la fila seleccionada
+    //     const selectedRowData = data[selectedRowIndex]; // Acceder a los datos de la fila seleccionada
+    //     console.log('Fila seleccionada:', selectedRowData);
+    //     // Acceder a los datos específicos de la fila (por ejemplo, el ID) de esta manera:
+    //     const uid = selectedRowData[2]; // El índice depende de la posición de la columna
+    //     console.log('UID de la fila seleccionada:', uid);
+    //   }
+    // },
   };
 
   const { classes } = props;
@@ -124,7 +170,6 @@ function AdvFilter(props) {
         columns={columns}
         options={options}
       />
-      {/* <Button onClick={getUsuarios}>Cargar Usuarios</Button> */}
     </div>
   );
 }

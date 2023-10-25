@@ -5,10 +5,16 @@ module.exports = [
     name: "Home",
     icon: "ion-ios-home-outline",
     child: [
+      // {
+      //   key: "user_profile",
+      //   name: "User Profile",
+      //   link: "/app/pages/user-profile",
+      //   icon: "ion-ios-person-outline",
+      // },
       {
         key: "user_profile",
         name: "User Profile",
-        link: "/app/pages/user-profile",
+        link: "/app/pages/perfil-usuario",
         icon: "ion-ios-person-outline",
       },
     ],

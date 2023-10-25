@@ -12,18 +12,14 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Typography from '@material-ui/core/Typography';
 import FormControl from '@material-ui/core/FormControl';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import AllInclusive from '@material-ui/icons/AllInclusive';
-import Brightness5 from '@material-ui/icons/Brightness5';
-import People from '@material-ui/icons/People';
 import ArrowForward from '@material-ui/icons/ArrowForward';
 import Paper from '@material-ui/core/Paper';
 import Icon from '@material-ui/core/Icon';
 import brand from 'dan-api/dummy/brand';
 import logo from 'dan-images/logo.svg';
 import styles from './user-jss';
-import { TextFieldRedux, CheckboxRedux } from './ReduxFormMUI';
-import { ContentDivider } from '../Divider';
+import { TextFieldRedux } from './ReduxFormMUI';
+
 
 // validation functions
 const required = value => (value === null ? 'Required' : undefined);
@@ -64,7 +60,7 @@ function LoginFormV2(props) {
   return (
     <Paper className={classNames(classes.sideWrap, deco && classes.petal)}>
       <div className={classes.topBar}>
-        <NavLink to="/" className={classes.brand}>
+        <NavLink to="/login-v2" className={classes.brand}>
           <img src={logo} alt={brand.name} />
           QR Payment
         </NavLink>
@@ -76,23 +72,6 @@ function LoginFormV2(props) {
       <Typography variant="h4" className={classes.title} gutterBottom>
         Iniciar Sesión
       </Typography>
-      <section className={classes.socmedSideLogin}>
-        <div className={classes.btnArea}>
-          <Button variant="outlined" size="small" className={classes.redBtn} type="button">
-            <AllInclusive className={classNames(classes.leftIcon, classes.iconSmall)} />
-            Socmed 1
-          </Button>
-          <Button variant="outlined" size="small" className={classes.blueBtn} type="button">
-            <Brightness5 className={classNames(classes.leftIcon, classes.iconSmall)} />
-            Socmed 2
-          </Button>
-          <Button variant="outlined" size="small" className={classes.cyanBtn} type="button">
-            <People className={classNames(classes.leftIcon, classes.iconSmall)} />
-            Socmed 3
-          </Button>
-        </div>
-        <ContentDivider content="o inicia sesión con correo electrónico" />
-      </section>
       <section className={classes.pageFormSideWrap}>
         {/* <form onSubmit={handleSubmit(onSubmitFormLogin)}> */}
         <form onSubmit={handleSubmit}>
@@ -134,10 +113,6 @@ function LoginFormV2(props) {
                 className={classes.field}
               />
             </FormControl>
-          </div>
-          <div className={classes.optArea}>
-            <FormControlLabel className={classes.label} control={<Field name="checkbox" component={CheckboxRedux} />} label="Remember" />
-            <Button size="small" component={LinkBtn} to="/reset-password" className={classes.buttonLink}>Forgot Password</Button>
           </div>
           <div className={classes.btnArea}>
             <Button variant="contained" fullWidth color="primary" size="large" type="submit">

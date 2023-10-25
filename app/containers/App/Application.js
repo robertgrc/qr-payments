@@ -32,7 +32,7 @@ import {
   Photos, Pricing, CheckoutPage,
   Error, Settings, HelpSupport,
   MapMarker, MapDirection, SearchMap,
-  TrafficIndicator, StreetViewMap, NotFound
+  TrafficIndicator, StreetViewMap, NotFound, PerfilUsuario
 } from '../pageListAsync';
 
 function Application(props) {
@@ -129,6 +129,7 @@ function Application(props) {
         <Route path="/app/pages/invoice" component={Invoice} />
         { /* Pages */ }
         <Route exact path="/app/pages" component={Parent} />
+        <Route path="/app/pages/perfil-usuario" component={PerfilUsuario} />
         <Route path="/app/pages/user-profile" component={Profile} />
         <Route path="/app/pages/blank-page" component={BlankPage} />
         <Route path="/app/pages/photo-gallery" component={Photos} />
