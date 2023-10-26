@@ -9,16 +9,14 @@ import Tab from '@material-ui/core/Tab';
 import Hidden from '@material-ui/core/Hidden';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import SupervisorAccount from '@material-ui/icons/SupervisorAccount';
-import Favorite from '@material-ui/icons/Favorite';
-import PhotoLibrary from '@material-ui/icons/PhotoLibrary';
+// import Favorite from '@material-ui/icons/Favorite';
+// import PhotoLibrary from '@material-ui/icons/PhotoLibrary';
 import { withStyles } from '@material-ui/core/styles';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {
   Cover,
-  Connection,
-  Favorites,
-  Albums
+  // Albums
 } from 'dan-components';
 import bgCover from 'dan-images/petal_bg.svg';
 import { Payment } from '@material-ui/icons';
@@ -27,6 +25,7 @@ import data from '../../SampleApps/Timeline/api/timelineData';
 import { fetchAction } from '../../SampleApps/Timeline/reducers/timelineActions';
 import AboutUser from '../../../components/Perfil/AboutUser';
 import UserPayments from '../../../components/Perfil/UserPayments';
+// import SimpleModal from '../../UiElements/demos/DialogModal/ModalDemo';
 
 
 function TabContainer(props) {
@@ -85,8 +84,8 @@ function UserProfile(props) {
           >
             <Tab icon={<AccountCircle />} />
             <Tab icon={<SupervisorAccount />} />
-            <Tab icon={<Favorite />} />
-            <Tab icon={<PhotoLibrary />} />
+            {/* <Tab icon={<Favorite />} />
+            <Tab icon={<PhotoLibrary />} /> */}
           </Tabs>
         </Hidden>
         <Hidden smDown>
@@ -100,15 +99,15 @@ function UserProfile(props) {
           >
             <Tab icon={<AccountCircle />} label="USUARIO" />
             <Tab icon={<Payment />} label="PAGOS" />
-            <Tab icon={<Favorite />} label="18 FAVORITES" />
-            <Tab icon={<PhotoLibrary />} label="4 ALBUMS" />
+            {/* <Tab icon={<Favorite />} label="18 FAVORITES" />
+            <Tab icon={<PhotoLibrary />} label="4 ALBUMS" /> */}
           </Tabs>
         </Hidden>
       </AppBar>
       {value === 0 && <TabContainer><AboutUser /></TabContainer>}
       {value === 1 && <TabContainer><UserPayments /></TabContainer>}
-      {value === 2 && <TabContainer><Favorites /></TabContainer>}
-      {value === 3 && <TabContainer><Albums /></TabContainer>}
+      {/* {value === 2 && <TabContainer><SimpleModal /></TabContainer>}
+      {value === 3 && <TabContainer><Albums /></TabContainer>} */}
     </div>
   );
 }
