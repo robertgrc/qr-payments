@@ -28,6 +28,7 @@ function RegisterV2(props) {
         password: values.get('password'),
         state: false,
         salario: 70,
+        rol: 'USER_ROLE'
       };
       // Realizar la solicitud POST con Axios
       axios.post('http://localhost:4000/api/auth/new', postData)
