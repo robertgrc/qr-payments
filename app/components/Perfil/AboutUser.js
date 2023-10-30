@@ -10,13 +10,14 @@ import LocationOn from '@material-ui/icons/LocationOn';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Divider from '@material-ui/core/Divider';
 import { PersonPin } from '@material-ui/icons';
+import PropTypes from 'prop-types';
 import PapperBlock from '../PapperBlock/PapperBlock';
 
 
-const AboutUser = () => (
+const AboutUser = ({ nombreUsuario }) => (
   <div>
     {/* About Me */}
-    <PapperBlock title="Robert Rogriguez" icon="ion-ios-contact-outline" whiteBg noMargin desc="Informacion acerca de mi">
+    <PapperBlock title={nombreUsuario} icon="ion-ios-contact-outline" whiteBg noMargin desc="Informacion acerca de mi">
       <Divider />
       <List>
         <ListItem>
@@ -56,5 +57,9 @@ const AboutUser = () => (
     <Divider />
   </div>
 );
+
+AboutUser.propTypes = {
+  nombreUsuario: PropTypes.string.isRequired
+};
 
 export default AboutUser;

@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 /* eslint-disable no-prototype-builtins */
 /* eslint-disable no-restricted-syntax */
 import React, { useState } from 'react';
@@ -31,6 +32,15 @@ function LoginV2(props) {
         .then(response => {
           // Aquí puedes manejar la respuesta de la API si es necesario
           console.log('Response from API:', response.data);
+          const token = response.data.token;
+          console.log('token desde login****', token);
+          console.log('IdUsuario****', response.data.uid);
+          console.log('NombreUsuario****', response.data.name);
+
+          localStorage.setItem('token', token);
+          localStorage.setItem('IdUsuario', response.data.uid);
+          localStorage.setItem('NombreUsuario', response.data.name);
+
           // window.location.href = '/app';
           if (response.data.ok) {
             // Verificar que la respuesta indique éxito y mostrar mensaje de éxito

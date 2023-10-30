@@ -42,6 +42,7 @@ TabContainer.propTypes = {
 };
 
 function UserProfile(props) {
+  const username = localStorage.getItem('NombreUsuario');
   const title = brand.name + ' - Profile';
   const description = brand.desc;
   const { dataProps, classes, fetchData } = props;
@@ -69,8 +70,8 @@ function UserProfile(props) {
       <Cover
         coverImg={bgCover}
         avatar={dummy.user.avatar}
-        name={dummy.user.name}
-        desc="Consectetur adipiscing elit."
+        name={username}
+        desc="Pagina Principal"
       />
       <AppBar position="static" className={classes.profileTab}>
         <Hidden mdUp>
@@ -104,7 +105,7 @@ function UserProfile(props) {
           </Tabs>
         </Hidden>
       </AppBar>
-      {value === 0 && <TabContainer><AboutUser /></TabContainer>}
+      {value === 0 && <TabContainer><AboutUser nombreUsuario={username} /></TabContainer>}
       {value === 1 && <TabContainer><UserPayments /></TabContainer>}
       {/* {value === 2 && <TabContainer><SimpleModal /></TabContainer>}
       {value === 3 && <TabContainer><Albums /></TabContainer>} */}

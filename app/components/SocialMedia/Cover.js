@@ -84,7 +84,7 @@ function Cover(props) {
           {desc}
         </Typography>
         <Button className={classes.button} size="large" variant="contained" color="secondary">
-          Add to Connection
+          Add information
         </Button>
       </div>
     </div>
