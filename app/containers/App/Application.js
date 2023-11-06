@@ -129,7 +129,7 @@ function Application(props) {
         <Route path="/app/pages/invoice" component={Invoice} />
         { /* Pages */ }
         <Route exact path="/app/pages" component={Parent} />
-        <Route path="/app/pages/perfil-usuario" component={PerfilUsuario} />
+        <Route path="/app/pages/perfil-usuario/:userId?" component={PerfilUsuario} />
         <Route path="/app/pages/user-profile" component={Profile} />
         <Route path="/app/pages/blank-page" component={BlankPage} />
         <Route path="/app/pages/photo-gallery" component={Photos} />

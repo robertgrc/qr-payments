@@ -1,4 +1,6 @@
+/* eslint-disable padded-blocks */
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import brand from 'dan-api/dummy/brand';
@@ -9,8 +11,6 @@ import Tab from '@material-ui/core/Tab';
 import Hidden from '@material-ui/core/Hidden';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import SupervisorAccount from '@material-ui/icons/SupervisorAccount';
-// import Favorite from '@material-ui/icons/Favorite';
-// import PhotoLibrary from '@material-ui/icons/PhotoLibrary';
 import { withStyles } from '@material-ui/core/styles';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -21,11 +21,11 @@ import {
 import bgCover from 'dan-images/petal_bg.svg';
 import { Payment } from '@material-ui/icons';
 import styles from 'dan-components/SocialMedia/jss/cover-jss';
+import axios from 'axios';
 import data from '../../SampleApps/Timeline/api/timelineData';
 import { fetchAction } from '../../SampleApps/Timeline/reducers/timelineActions';
 import AboutUser from '../../../components/Perfil/AboutUser';
 import UserPayments from '../../../components/Perfil/UserPayments';
-// import SimpleModal from '../../UiElements/demos/DialogModal/ModalDemo';
 
 
 function TabContainer(props) {
@@ -42,11 +42,59 @@ TabContainer.propTypes = {
 };
 
 function UserProfile(props) {
+
+  const { userId } = useParams();
+  console.log('userId****', userId);
+
+  const [userData, setUserData] = useState({
+    direccion: '',
+    email: '',
+    nombreCompleto: '',
+    profesion: '',
+    telefono: '',
+  });
+
+  useEffect(() => {
+
+    if (userId) {
+      // solicitud HTTP con Axios para obtener los datos del usuario
+      axios.get(`http://localhost:4000/api/userInfo/usuario/${userId}`)
+        .then((response) => {
+          const userDataFromResponse = response.data.registros[0]; // Tomar el primer registro de la respuesta
+          console.log(response.data);
+          const datosUsuario = {
+            direccion: userDataFromResponse.direccion || '',
+            email: userDataFromResponse.email || '',
+            nombreCompleto: userDataFromResponse.nombreCompleto || '',
+            profesion: userDataFromResponse.profesion || '',
+            telefono: userDataFromResponse.telefono || '',
+          };
+          setUserData(datosUsuario);
+        })
+        .catch((error) => {
+          console.error('Error al obtener los datos del usuario:', error);
+        });
+    } else {
+      // No hay usuario en el almacenamiento local, mostrar datos vacíos
+      setUserData({
+        direccion: '',
+        email: '',
+        nombreCompleto: '',
+        profesion: '',
+        telefono: '',
+      });
+    }
+  }, [userId]);
+
+  useEffect(() => {
+    console.log('userData****777', userData);
+  }, [userData]);
+
   const username = localStorage.getItem('NombreUsuario');
   const title = brand.name + ' - Profile';
   const description = brand.desc;
-  const { dataProps, classes, fetchData } = props;
-  console.log(dataProps);
+  const { classes, fetchData } = props;
+  // console.log(dataProps);
   const [value, setValue] = useState(0);
 
   useEffect(() => {
@@ -85,8 +133,6 @@ function UserProfile(props) {
           >
             <Tab icon={<AccountCircle />} />
             <Tab icon={<SupervisorAccount />} />
-            {/* <Tab icon={<Favorite />} />
-            <Tab icon={<PhotoLibrary />} /> */}
           </Tabs>
         </Hidden>
         <Hidden smDown>
@@ -100,22 +146,18 @@ function UserProfile(props) {
           >
             <Tab icon={<AccountCircle />} label="USUARIO" />
             <Tab icon={<Payment />} label="PAGOS" />
-            {/* <Tab icon={<Favorite />} label="18 FAVORITES" />
-            <Tab icon={<PhotoLibrary />} label="4 ALBUMS" /> */}
           </Tabs>
         </Hidden>
       </AppBar>
-      {value === 0 && <TabContainer><AboutUser nombreUsuario={username} /></TabContainer>}
+      {value === 0 && <TabContainer><AboutUser nombreUsuario={username} direccion={userData.direccion} email={userData.email} nombreCompleto={userData.nombreCompleto} profesion={userData.profesion} telefono={userData.telefono} /></TabContainer>}
       {value === 1 && <TabContainer><UserPayments /></TabContainer>}
-      {/* {value === 2 && <TabContainer><SimpleModal /></TabContainer>}
-      {value === 3 && <TabContainer><Albums /></TabContainer>} */}
     </div>
   );
 }
 
 UserProfile.propTypes = {
   classes: PropTypes.object.isRequired,
-  dataProps: PropTypes.object.isRequired,
+  // dataProps: PropTypes.object.isRequired,
   fetchData: PropTypes.func.isRequired,
 };
 

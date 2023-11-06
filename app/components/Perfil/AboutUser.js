@@ -13,8 +13,7 @@ import { PersonPin } from '@material-ui/icons';
 import PropTypes from 'prop-types';
 import PapperBlock from '../PapperBlock/PapperBlock';
 
-
-const AboutUser = ({ nombreUsuario }) => (
+const AboutUser = ({ nombreUsuario, direccion, email, profesion, telefono }) => (
   <div>
     {/* About Me */}
     <PapperBlock title={nombreUsuario} icon="ion-ios-contact-outline" whiteBg noMargin desc="Informacion acerca de mi">
@@ -26,7 +25,7 @@ const AboutUser = ({ nombreUsuario }) => (
               <DateRange />
             </Avatar>
           </ListItemAvatar>
-          <ListItemText primary="Nacimiento" secondary="Jan 9, 1994" />
+          <ListItemText primary="Profesión" secondary={profesion} />
         </ListItem>
         <ListItem>
           <ListItemAvatar>
@@ -34,7 +33,7 @@ const AboutUser = ({ nombreUsuario }) => (
               <PersonPin />
             </Avatar>
           </ListItemAvatar>
-          <ListItemText primary="RNI" secondary="28921038" />
+          <ListItemText primary="Email" secondary={email} />
         </ListItem>
         <ListItem>
           <ListItemAvatar>
@@ -42,7 +41,7 @@ const AboutUser = ({ nombreUsuario }) => (
               <LocalPhone />
             </Avatar>
           </ListItemAvatar>
-          <ListItemText primary="Phone" secondary="(+591)70784004" />
+          <ListItemText primary="Telefono" secondary={telefono} />
         </ListItem>
         <ListItem>
           <ListItemAvatar>
@@ -50,7 +49,7 @@ const AboutUser = ({ nombreUsuario }) => (
               <LocationOn />
             </Avatar>
           </ListItemAvatar>
-          <ListItemText primary="Address" secondary="Chicendo Street no.105 Block A/5A - Barcelona, Spain" />
+          <ListItemText primary="Dirección" secondary={direccion} />
         </ListItem>
       </List>
     </PapperBlock>
@@ -59,7 +58,11 @@ const AboutUser = ({ nombreUsuario }) => (
 );
 
 AboutUser.propTypes = {
-  nombreUsuario: PropTypes.string.isRequired
+  nombreUsuario: PropTypes.string.isRequired,
+  direccion: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
+  telefono: PropTypes.string.isRequired,
+  profesion: PropTypes.string.isRequired,
 };
 
 export default AboutUser;

@@ -45,7 +45,7 @@ function LoginV2(props) {
           if (response.data.ok) {
             // Verificar que la respuesta indique éxito y mostrar mensaje de éxito
             showSuccessMessage(response.data.msg);
-            history.push('app/pages/perfil-usuario');
+            history.push(`app/pages/perfil-usuario/${response.data.uid}`);
           } else {
             // En caso de que la respuesta no indique éxito, manejarlo según sea necesario
             console.error('Respuesta del servidor no exitosa');
