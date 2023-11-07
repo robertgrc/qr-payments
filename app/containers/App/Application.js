@@ -34,6 +34,7 @@ import {
   MapMarker, MapDirection, SearchMap,
   TrafficIndicator, StreetViewMap, NotFound, PerfilUsuario
 } from '../pageListAsync';
+import PaginaPrueba from '../../components/PaginaPrueba/PaginaPrueba';
 
 function Application(props) {
   const { history } = props;
@@ -130,6 +131,7 @@ function Application(props) {
         { /* Pages */ }
         <Route exact path="/app/pages" component={Parent} />
         <Route path="/app/pages/perfil-usuario/:userId?" component={PerfilUsuario} />
+        <Route path="/app/pages/prueba" component={PaginaPrueba} />
         <Route path="/app/pages/user-profile" component={Profile} />
         <Route path="/app/pages/blank-page" component={BlankPage} />
         <Route path="/app/pages/photo-gallery" component={Photos} />

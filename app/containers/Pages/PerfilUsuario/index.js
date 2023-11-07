@@ -26,6 +26,8 @@ import data from '../../SampleApps/Timeline/api/timelineData';
 import { fetchAction } from '../../SampleApps/Timeline/reducers/timelineActions';
 import AboutUser from '../../../components/Perfil/AboutUser';
 import UserPayments from '../../../components/Perfil/UserPayments';
+import qrApi from '../../../api/ui/qrApi';
+import { Button } from '@material-ui/core';
 
 
 function TabContainer(props) {
