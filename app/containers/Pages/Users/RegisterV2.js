@@ -10,8 +10,8 @@ import { withStyles } from '@material-ui/core/styles';
 import brand from 'dan-api/dummy/brand';
 import { RegisterFormV2 } from 'dan-components';
 import styles from 'dan-components/Forms/user-jss';
-import axios from 'axios';
 import { showErrorMessage, showSuccessMessage } from '../../../helpers/messageHelpers';
+import qrApi from '../../../api/ui/qrApi';
 function RegisterV2(props) {
   const history = useHistory();
   const [valueForm, setValueForm] = useState(null);
@@ -31,7 +31,7 @@ function RegisterV2(props) {
         rol: 'USER_ROLE'
       };
       // Realizar la solicitud POST con Axios
-      axios.post('http://localhost:4000/api/auth/new', postData)
+      qrApi.post('auth/new', postData)
         .then(response => {
           // Aquí puedes manejar la respuesta de la API si es necesario
           console.log('Response from API:', response.data);
