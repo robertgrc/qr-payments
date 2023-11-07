@@ -21,14 +21,12 @@ import {
 import bgCover from 'dan-images/petal_bg.svg';
 import { Payment } from '@material-ui/icons';
 import styles from 'dan-components/SocialMedia/jss/cover-jss';
-import axios from 'axios';
 import data from '../../SampleApps/Timeline/api/timelineData';
 import { fetchAction } from '../../SampleApps/Timeline/reducers/timelineActions';
 import AboutUser from '../../../components/Perfil/AboutUser';
 import UserPayments from '../../../components/Perfil/UserPayments';
 import qrApi from '../../../api/ui/qrApi';
-import { Button } from '@material-ui/core';
-
+import { useUser } from '../../context/UserContext';
 
 function TabContainer(props) {
   const { children } = props;
@@ -46,21 +44,22 @@ TabContainer.propTypes = {
 function UserProfile(props) {
 
   const { userId } = useParams();
+  const { userData, setUserData } = useUser();
   console.log('userId****', userId);
 
-  const [userData, setUserData] = useState({
-    direccion: '',
-    email: '',
-    nombreCompleto: '',
-    profesion: '',
-    telefono: '',
-  });
+  // const [userData, setUserData] = useState({
+  //   direccion: '',
+  //   email: '',
+  //   nombreCompleto: '',
+  //   profesion: '',
+  //   telefono: '',
+  // });
 
   useEffect(() => {
 
     if (userId) {
       // solicitud HTTP con Axios para obtener los datos del usuario
-      axios.get(`http://localhost:4000/api/userInfo/usuario/${userId}`)
+      qrApi.get(`userInfo/usuario/${userId}`)
         .then((response) => {
           const userDataFromResponse = response.data.registros[0]; // Tomar el primer registro de la respuesta
           console.log(response.data);

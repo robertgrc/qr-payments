@@ -13,10 +13,10 @@ import { PersonPin } from '@material-ui/icons';
 import PropTypes from 'prop-types';
 import PapperBlock from '../PapperBlock/PapperBlock';
 
-const AboutUser = ({ nombreUsuario, direccion, email, profesion, telefono }) => (
+const AboutUser = ({ nombreCompleto, direccion, email, profesion, telefono }) => (
   <div>
     {/* About Me */}
-    <PapperBlock title={nombreUsuario} icon="ion-ios-contact-outline" whiteBg noMargin desc="Informacion acerca de mi">
+    <PapperBlock title={nombreCompleto} icon="ion-ios-contact-outline" whiteBg noMargin desc="Informacion acerca de mi">
       <Divider />
       <List>
         <ListItem>
@@ -58,7 +58,7 @@ const AboutUser = ({ nombreUsuario, direccion, email, profesion, telefono }) => 
 );
 
 AboutUser.propTypes = {
-  nombreUsuario: PropTypes.string.isRequired,
+  nombreCompleto: PropTypes.string.isRequired,
   direccion: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
   telefono: PropTypes.string.isRequired,
