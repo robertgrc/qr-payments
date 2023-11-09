@@ -1,8 +1,9 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable eol-last */
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import Grid from '@material-ui/core/Grid';
+import { useParams } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import { Button } from '@material-ui/core';
@@ -15,16 +16,12 @@ function UserInformationForm() {
     userId: '',
     profesion: '',
     email: '',
-    nombre: '',
+    nombreCompleto: '',
     direccion: '',
     rni: '',
     telefono: ''
   });
 
-  // const createRegisterUserInformation = (e) => {
-  //   e.preventDefault();
-  //   console.log('createRegister');
-  // };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setUserData({ ...userData, [name]: value });
@@ -34,7 +31,7 @@ function UserInformationForm() {
     e.preventDefault();
 
     const requestData = {
-      nombreCompleto: userData.nombre,
+      nombreCompleto: userData.nombreCompleto,
       email: userData.email,
       telefono: userData.telefono,
       profesion: userData.profesion,
@@ -55,6 +52,34 @@ function UserInformationForm() {
       console.error('Error en la solicitud:', error);
     }
   };
+
+  //*-----
+  const { registroId } = useParams();
+
+  const getRegistroById = async () => {
+    try {
+      const response = await qrApi.get(`/userInfo/${registroId}`);
+      const { registro } = response.data;
+      setUserData({
+        direccion: registro.direccion || '',
+        email: registro.email || '',
+        nombreCompleto: registro.nombreCompleto || '',
+        profesion: registro.profesion || '',
+        telefono: registro.telefono || '',
+        rni: registro.rni || '',
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if (registroId) {
+      getRegistroById(registroId);
+    }
+  }, [registroId]);
+  //*-----
+
 
   const updateRegisterUserInformation = () => {
 
@@ -97,7 +122,7 @@ function UserInformationForm() {
             label="Nombre Completo"
             fullWidth
             autoComplete="nombre"
-            value={userData.nombre}
+            value={userData.nombreCompleto}
             onChange={handleInputChange}
           />
         </Grid>
