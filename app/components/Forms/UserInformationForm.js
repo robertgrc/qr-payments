@@ -1,4 +1,5 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable padded-blocks */
 /* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable eol-last */
 import React, { Fragment, useEffect, useState } from 'react';
@@ -8,6 +9,8 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import { Button } from '@material-ui/core';
 import qrApi from '../../api/ui/qrApi';
+import { showSuccessMessage } from '../../helpers/messageHelpers';
+// import { showErrorMessage, showSuccessMessage } from '../../helpers/AlertMessages';
 
 
 function UserInformationForm() {
@@ -44,19 +47,21 @@ function UserInformationForm() {
 
       if (response.status === 200) {
         console.log('Registro creado exitosamente');
+        // showSuccessMessage('RegistroUserInfo creado con éxito');
         // Puedes realizar otras acciones después de que el registro sea exitoso
       } else {
         console.error('Error al crear el registro');
       }
     } catch (error) {
       console.error('Error en la solicitud:', error);
+      // showErrorMessage('Error al crear RegistroUserInfo');
     }
   };
 
   //*-----
   const { registroId } = useParams();
 
-  const getRegistroById = async () => {
+  const getRegistroUserInformationById = async () => {
     try {
       const response = await qrApi.get(`/userInfo/${registroId}`);
       const { registro } = response.data;
@@ -75,15 +80,34 @@ function UserInformationForm() {
 
   useEffect(() => {
     if (registroId) {
-      getRegistroById(registroId);
+      getRegistroUserInformationById(registroId);
     }
   }, [registroId]);
   //*-----
 
 
-  const updateRegisterUserInformation = () => {
-
+  const updateRegisterUserInformation = async () => {
+    try {
+      const response = await qrApi.put(`./userInfo/${registroId}`, {
+        direccion: userData.direccion || '',
+        email: userData.email || '',
+        nombreCompleto: userData.nombreCompleto || '',
+        profesion: userData.profesion || '',
+        telefono: userData.telefono || '',
+        rni: userData.rni || '',
+      });
+      console.log(response.data);
+      // showSuccessMessage('Formulario actualizado con éxito');
+      console.log('Registro userInfo actualizado con éxito');
+      // resetForm();
+      // history.push('../TablaCalendarioReservas');
+    } catch (error) {
+      console.log(error);
+      // showErrorMessage('No se pudo actualizar el Formulario');
+      console.log('No se pudo actualizar el userInfo');
+    }
   };
+
   return (
     <Fragment>
       <Typography variant="h6" gutterBottom>
@@ -117,11 +141,11 @@ function UserInformationForm() {
         <Grid item xs={12}>
           <TextField
             required
-            id="nombre"
-            name="nombre"
+            id="nombreCompleto"
+            name="nombreCompleto"
             label="Nombre Completo"
             fullWidth
-            autoComplete="nombre"
+            autoComplete="nombreCompleto"
             value={userData.nombreCompleto}
             onChange={handleInputChange}
           />
