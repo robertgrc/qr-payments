@@ -1,6 +1,6 @@
 /* eslint-disable padded-blocks */
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import brand from 'dan-api/dummy/brand';
@@ -28,6 +28,7 @@ import UserPayments from '../../../components/Perfil/UserPayments';
 import qrApi from '../../../api/ui/qrApi';
 import { useUser } from '../../context/UserContext';
 
+
 function TabContainer(props) {
   const { children } = props;
   return (
@@ -43,18 +44,12 @@ TabContainer.propTypes = {
 
 function UserProfile(props) {
 
-  const { userId } = useParams();
+  const userId = localStorage.getItem('IdUsuario');
   const { userData, setUserData } = useUser();
-  console.log('userId****', userId);
+  const [registroId, setRegistroId] = useState(null);
 
-  // const [userData, setUserData] = useState({
-  //   direccion: '',
-  //   email: '',
-  //   nombreCompleto: '',
-  //   profesion: '',
-  //   telefono: '',
-  // });
-
+  // console.log('userId****', userId);
+  const history = useHistory();
   useEffect(() => {
 
     if (userId) {
@@ -62,13 +57,14 @@ function UserProfile(props) {
       qrApi.get(`userInfo/usuario/${userId}`)
         .then((response) => {
           const userDataFromResponse = response.data.registros[0]; // Tomar el primer registro de la respuesta
-          console.log(response.data);
+          // console.log(response.data);
           const datosUsuario = {
             direccion: userDataFromResponse.direccion || '',
             email: userDataFromResponse.email || '',
             nombreCompleto: userDataFromResponse.nombreCompleto || '',
             profesion: userDataFromResponse.profesion || '',
             telefono: userDataFromResponse.telefono || '',
+            rni: userDataFromResponse.rni || '',
           };
           setUserData(datosUsuario);
         })
@@ -83,12 +79,13 @@ function UserProfile(props) {
         nombreCompleto: '',
         profesion: '',
         telefono: '',
+        rni: '',
       });
     }
   }, [userId]);
 
   useEffect(() => {
-    console.log('userData****777', userData);
+    // console.log('userData****777', userData);
   }, [userData]);
 
   const username = localStorage.getItem('NombreUsuario');
@@ -104,6 +101,38 @@ function UserProfile(props) {
 
   const handleChange = (event, val) => {
     setValue(val);
+  };
+
+  // Efecto que se ejecuta cuando cambia el userId
+  useEffect(() => {
+  // Verifica si userId está definido
+    if (userId) {
+      qrApi.get(`http://localhost:4000/api/userInfo/usuario/${userId}`)
+        .then(response => {
+          if (response.data.registros.length > 0) {
+            const registroUserInfoId = response.data.registros[0].id;
+            setRegistroId(registroUserInfoId);
+          } else {
+            // No se encontró un registroId, establece registroId como null
+            setRegistroId(null);
+          }
+        })
+        .catch(error => {
+          // Maneja errores en la petición, por ejemplo, mostrando un mensaje de error
+          console.error('Error al obtener el registroId:', error);
+        });
+    }
+  }, [userId]);
+
+  const handleUserInformation = () => {
+    console.log('click en userInformation');
+    if (registroId) {
+      // Si hay un registroId, pasa el registroId como parámetro
+      history.push(`/app/pages/userInformationForm/${registroId}`);
+    } else {
+      // Si no hay registroId, simplemente redirige al formulario sin parámetros
+      history.push('/app/pages/userInformationForm');
+    }
   };
 
   return (
@@ -150,7 +179,7 @@ function UserProfile(props) {
           </Tabs>
         </Hidden>
       </AppBar>
-      {value === 0 && <TabContainer><AboutUser nombreUsuario={username} direccion={userData.direccion} email={userData.email} nombreCompleto={userData.nombreCompleto} profesion={userData.profesion} telefono={userData.telefono} /></TabContainer>}
+      {value === 0 && <TabContainer><AboutUser handleUserInformation={handleUserInformation} nombreUsuario={username} direccion={userData.direccion} email={userData.email} nombreCompleto={userData.nombreCompleto} profesion={userData.profesion} telefono={userData.telefono} rni={userData.rni} /></TabContainer>}
       {value === 1 && <TabContainer><UserPayments /></TabContainer>}
     </div>
   );

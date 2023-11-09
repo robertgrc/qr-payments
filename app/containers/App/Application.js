@@ -36,6 +36,8 @@ import {
 } from '../pageListAsync';
 import PaginaPrueba from '../../components/PaginaPrueba/PaginaPrueba';
 import { UserProvider } from '../context/UserContext';
+import PaymentForm from '../../components/Forms/PaymentForm';
+import UserInformationForm from '../../components/Forms/UserInformationForm';
 
 function Application(props) {
   const { history } = props;
@@ -133,6 +135,8 @@ function Application(props) {
           { /* Pages */ }
           <Route exact path="/app/pages" component={Parent} />
           <Route path="/app/pages/perfil-usuario/:userId?" component={PerfilUsuario} />
+          <Route path="/app/pages/paymentForm/:userId?" component={PaymentForm} />
+          <Route path="/app/pages/userInformationForm/:registroId?" component={UserInformationForm} />
           <Route path="/app/pages/prueba" component={PaginaPrueba} />
           <Route path="/app/pages/user-profile" component={Profile} />
           <Route path="/app/pages/blank-page" component={BlankPage} />

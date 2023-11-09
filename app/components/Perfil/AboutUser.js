@@ -1,4 +1,5 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable object-curly-newline */
 import React from 'react';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -11,12 +12,15 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Divider from '@material-ui/core/Divider';
 import { PersonPin } from '@material-ui/icons';
 import PropTypes from 'prop-types';
+import { Button } from '@material-ui/core';
 import PapperBlock from '../PapperBlock/PapperBlock';
 
-const AboutUser = ({ nombreCompleto, direccion, email, profesion, telefono }) => (
+const AboutUser = ({ nombreCompleto, direccion, email, profesion, telefono, rni, handleUserInformation }) => (
+
   <div>
     {/* About Me */}
     <PapperBlock title={nombreCompleto} icon="ion-ios-contact-outline" whiteBg noMargin desc="Informacion acerca de mi">
+      <Button onClick={handleUserInformation} type="submit" variant="outlined" color="secondary" style={{ width: '20%', marginBottom: '1%' }}>Agregar Informacion</Button>
       <Divider />
       <List>
         <ListItem>
@@ -51,6 +55,14 @@ const AboutUser = ({ nombreCompleto, direccion, email, profesion, telefono }) =>
           </ListItemAvatar>
           <ListItemText primary="Dirección" secondary={direccion} />
         </ListItem>
+        <ListItem>
+          <ListItemAvatar>
+            <Avatar>
+              <LocationOn />
+            </Avatar>
+          </ListItemAvatar>
+          <ListItemText primary="RNI" secondary={rni} />
+        </ListItem>
       </List>
     </PapperBlock>
     <Divider />
@@ -63,6 +75,8 @@ AboutUser.propTypes = {
   email: PropTypes.string.isRequired,
   telefono: PropTypes.string.isRequired,
   profesion: PropTypes.string.isRequired,
+  rni: PropTypes.string.isRequired,
+  handleUserInformation: PropTypes.func.isRequired,
 };
 
 export default AboutUser;

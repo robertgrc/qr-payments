@@ -1,4 +1,5 @@
 /* eslint-disable quotes */
+
 module.exports = [
   {
     key: "home",

@@ -40,6 +40,10 @@ function Cover(props) {
     setAnchorElOpt(null);
   };
 
+  const modificarInformacionUsuario = () => {
+    console.log('modificando informacion usuario');
+  };
+
   return (
     <div className={classes.cover} style={{ backgroundImage: `url(${coverImg})` }}>
       <div className={classes.opt}>
@@ -83,7 +87,7 @@ function Cover(props) {
         <Typography className={classes.subheading} gutterBottom>
           {desc}
         </Typography>
-        <Button className={classes.button} size="large" variant="contained" color="secondary">
+        <Button className={classes.button} size="large" variant="contained" color="secondary" onClick={modificarInformacionUsuario}>
           Agregar Informacion
         </Button>
       </div>

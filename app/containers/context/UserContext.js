@@ -13,6 +13,7 @@ export const UserProvider = ({ children }) => {
     nombreCompleto: '',
     profesion: '',
     telefono: '',
+    rni: '',
   });
 
   return (
