@@ -10,7 +10,7 @@
 /* eslint-disable padded-blocks */
 /* eslint-disable arrow-body-style */
 import React, { useEffect, useState } from 'react';
-import { Chip, IconButton, Tooltip, Typography } from '@material-ui/core';
+import { Chip, IconButton, Tooltip, Typography, TextField, Button } from '@material-ui/core';
 import Money from '@material-ui/icons/MonetizationOnRounded';
 import qrcodeImage from './images/qrcode.jpg';
 import './UserPayments.css';
@@ -24,7 +24,6 @@ const UserPaymentsV2 = () => {
   const fechaInicioInicial = new Date(); // Fecha actual
   fechaInicioInicial.setMonth(fechaInicioInicial.getMonth() - 4); // Restar 4 meses
   const [fechaInicio, setFechaInicio] = useState(fechaInicioInicial); // Estado para la fecha inicial
-
 
   useEffect(() => {
     // Obtener la fecha actual
@@ -61,16 +60,47 @@ const UserPaymentsV2 = () => {
 
     setAbonosData(abonos);
   }, [fechaInicio]);
+  console.log(abonosData);
 
-  const handlePayAbono = (abono) => {
+  const handlePayAbono = async (abono) => {
     console.log(abono);
     setSelectedAbono(abono);
+
+    const { mes, gestion, monto } = abono;
+    const mesPago = `${mes}-${gestion}`;
+
+    // Crear el objeto de pago
+    const pagoData = {
+      nombreUsuario: localStorage.getItem('NombreUsuario'), // Asumiendo que tienes almacenado el nombre de usuario en localStorage
+      fechaPago: new Date(), // La fecha actual
+      mesPago: mesPago,
+      monto: 700,
+      qr: '456422534', // Puedes generar esto como una cadena aleatoria
+      estado: true,
+    };
+
+    try {
+      // Hacer la solicitud POST para guardar el pago en la base de datos
+      const response = await qrApi.post('pago', pagoData);
+
+      if (response.data.ok) {
+        console.log('Pago guardado exitosamente');
+
+        // Puedes agregar más lógica aquí, como actualizar el estado de 'abono' o cerrar el modal, según sea necesario.
+      } else {
+        console.error('Error al intentar guardar el pago:', response.status);
+      }
+    } catch (error) {
+      console.error('Error al intentar guardar el pago:', error);
+    }
+
     setIsModalOpen(true);
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
   };
+
 
   return (
     <div className="ContainerTablaAbonos">
@@ -91,12 +121,12 @@ const UserPaymentsV2 = () => {
                 <td>{abono.mes}</td>
                 <td>{abono.gestion}</td>
                 <td>
-                  {/* {abono.estadoPagos ? (<Button variant="contained" color="success">Ok</Button>) : (<Button variant="outlined" color="error">Pendiente</Button>)} */}
-                  {abono.estadoPagos ? (<Chip label="Cancelado" color="secondary" />) : (<Chip label="Pendiente" color="primary" />)}
+                  {/* Evaluar la propiedad estado de abono.estadoPagos */}
+                  {abono.estadoPagos.estado ? (<Chip label="Cancelado" color="secondary" />) : (<Chip label="Pendiente" color="primary" />)}
                 </td>
                 <td>{abono.fechaActual}</td>
                 <td>
-                  {abono.estadoPagos ? (
+                  {abono.estadoPagos.estado ? (
                     <Typography variant="body1">Pagos Al día</Typography>
                   ) : (
                     <div>
@@ -124,6 +154,9 @@ const UserPaymentsV2 = () => {
                   </p>
                   <img src={qrcodeImage} alt="Código QR" />
                   {/* Aquí puedes mostrar la imagen del código QR si la tienes */}
+                  {/* <Button variant="contained" color="primary" onClick={handleCreatePayment}>
+                    Crear Pago
+                  </Button> */}
                 </div>
               </div>
             )}
