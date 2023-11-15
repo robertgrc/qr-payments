@@ -88,7 +88,7 @@ function Cover(props) {
           {desc}
         </Typography>
         <Button className={classes.button} size="large" variant="contained" color="secondary" onClick={modificarInformacionUsuario}>
-          Agregar Informacion
+          Add Info
         </Button>
       </div>
     </div>

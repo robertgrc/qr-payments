@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import { Button } from '@material-ui/core';
 import qrApi from '../../api/ui/qrApi';
-import { showSuccessMessage } from '../../helpers/messageHelpers';
+// import { showSuccessMessage } from '../../helpers/messageHelpers';
 // import { showErrorMessage, showSuccessMessage } from '../../helpers/AlertMessages';
 
 

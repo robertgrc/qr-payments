@@ -26,8 +26,6 @@ function RegisterV2(props) {
         name: values.get('name'),
         email: values.get('email'),
         password: values.get('password'),
-        state: false,
-        salario: 70,
         rol: 'USER_ROLE'
       };
       // Realizar la solicitud POST con Axios
