@@ -24,6 +24,7 @@ const UserPaymentsV2 = () => {
   const fechaInicioInicial = new Date(); // Fecha actual
   fechaInicioInicial.setMonth(fechaInicioInicial.getMonth() - 4); // Restar 4 meses
   const [fechaInicio, setFechaInicio] = useState(fechaInicioInicial); // Estado para la fecha inicial
+  const [monto, setMonto] = useState('');
 
   useEffect(() => {
     // Obtener la fecha actual
@@ -65,39 +66,42 @@ const UserPaymentsV2 = () => {
   const handlePayAbono = async (abono) => {
     console.log(abono);
     setSelectedAbono(abono);
+    setIsModalOpen(true);
+  };
 
-    const { mes, gestion, monto } = abono;
-    const mesPago = `${mes}-${gestion}`;
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCreatePayment = async () => {
+    // Validar que el monto no esté vacío
+    if (!monto) {
+      alert('Ingresa un monto válido.');
+      return;
+    }
 
     // Crear el objeto de pago
     const pagoData = {
-      nombreUsuario: localStorage.getItem('NombreUsuario'), // Asumiendo que tienes almacenado el nombre de usuario en localStorage
-      fechaPago: new Date(), // La fecha actual
-      mesPago: mesPago,
-      monto: 700,
-      qr: '456422534', // Puedes generar esto como una cadena aleatoria
+      nombreUsuario: localStorage.getItem('NombreUsuario'),
+      fechaPago: new Date(),
+      mesPago: `${selectedAbono.mes}-${selectedAbono.gestion}`,
+      monto: parseFloat(monto), // Convertir el monto a número
+      qr: '456422534',
       estado: true,
     };
 
     try {
-      // Hacer la solicitud POST para guardar el pago en la base de datos
       const response = await qrApi.post('pago', pagoData);
 
       if (response.data.ok) {
         console.log('Pago guardado exitosamente');
-
-        // Puedes agregar más lógica aquí, como actualizar el estado de 'abono' o cerrar el modal, según sea necesario.
       } else {
         console.error('Error al intentar guardar el pago:', response.status);
       }
     } catch (error) {
       console.error('Error al intentar guardar el pago:', error);
     }
-
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
+    // Cerrar el modal después de guardar
     setIsModalOpen(false);
   };
 
@@ -154,9 +158,15 @@ const UserPaymentsV2 = () => {
                   </p>
                   <img src={qrcodeImage} alt="Código QR" />
                   {/* Aquí puedes mostrar la imagen del código QR si la tienes */}
-                  {/* <Button variant="contained" color="primary" onClick={handleCreatePayment}>
+                  <TextField
+                    label="Monto"
+                    type="number"
+                    value={monto}
+                    onChange={(e) => setMonto(e.target.value)}
+                  />
+                  <Button variant="contained" color="primary" onClick={handleCreatePayment}>
                     Crear Pago
-                  </Button> */}
+                  </Button>
                 </div>
               </div>
             )}
