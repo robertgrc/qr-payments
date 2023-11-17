@@ -39,8 +39,8 @@ const UserPaymentsV2 = () => {
 
     // Generar dinámicamente los abonos desde la fecha de inicio hasta el mes actual
     const months = [
-      '01', '02', '03', '04', '05', '06',
-      '07', '08', '09', '10', '11', '12'
+      'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+      'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
     ];
 
     const abonos = [];
@@ -61,7 +61,57 @@ const UserPaymentsV2 = () => {
 
     setAbonosData(abonos);
   }, [fechaInicio]);
+
   console.log(abonosData);
+
+  const idUsuario = localStorage.getItem('IdUsuario');
+  const apiUrl = `pago/${idUsuario}`;
+
+  useEffect(() => {
+    const fetchAbonosData = async () => {
+      try {
+        const response = await qrApi.get(apiUrl);
+        const { ok, pagos } = response.data; // Desestructura el objeto para obtener pagos
+
+        if (ok && Array.isArray(pagos)) {
+          // Actualizar abonosData con los datos de la consulta
+          setAbonosData((prevAbonosData) => {
+            const updatedAbonosData = prevAbonosData.map((abono) => {
+              const pago = pagos.find((p) => {
+                const [mesPago, gestionPago] = p.mesPago.split('-');
+                return mesPago === abono.mes && String(gestionPago) === String(abono.gestion);
+              });
+
+              if (pago) {
+                console.log('Actualizando abono:', abono);
+                console.log('Con datos de pago:', pago);
+
+                return {
+                  ...abono,
+                  estadoPagos: { idPago: pago._id, estado: pago.estado },
+                  fechaPago: pago.fechaPago,
+                };
+              }
+
+              return abono;
+            });
+
+            console.log('Abonos actualizados:', updatedAbonosData);
+
+            return updatedAbonosData;
+          });
+        } else {
+          console.error('La respuesta del servidor no es válida:', response.data);
+        }
+      } catch (error) {
+        console.error('Error al obtener los abonos:', error);
+      }
+    };
+
+    if (idUsuario) {
+      fetchAbonosData();
+    }
+  }, []);
 
   const handlePayAbono = async (abono) => {
     console.log(abono);
@@ -115,7 +165,7 @@ const UserPaymentsV2 = () => {
               <th>Mes</th>
               <th>Gestion</th>
               <th>Estado de Pagos</th>
-              <th>Fecha</th>
+              <th>Fecha de Pago</th>
               <th>Pago QR</th>
             </tr>
           </thead>
@@ -128,7 +178,7 @@ const UserPaymentsV2 = () => {
                   {/* Evaluar la propiedad estado de abono.estadoPagos */}
                   {abono.estadoPagos.estado ? (<Chip label="Cancelado" color="secondary" />) : (<Chip label="Pendiente" color="primary" />)}
                 </td>
-                <td>{abono.fechaActual}</td>
+                <td>{abono.fechaPago}</td>
                 <td>
                   {abono.estadoPagos.estado ? (
                     <Typography variant="body1">Pagos Al día</Typography>
