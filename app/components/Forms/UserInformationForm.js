@@ -2,7 +2,7 @@
 /* eslint-disable padded-blocks */
 /* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable eol-last */
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 import { useParams } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
@@ -11,7 +11,7 @@ import { Button } from '@material-ui/core';
 import qrApi from '../../api/ui/qrApi';
 // import { showSuccessMessage } from '../../helpers/messageHelpers';
 // import { showErrorMessage, showSuccessMessage } from '../../helpers/AlertMessages';
-
+import './UserInformationForm.css';
 
 function UserInformationForm() {
 
@@ -109,87 +109,89 @@ function UserInformationForm() {
   };
 
   return (
-    <Fragment>
-      <Typography variant="h6" gutterBottom>
-        Informacion del Usuario
-      </Typography>
-      <Grid container spacing={3}>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="profesion"
-            name="profesion"
-            label="Profesión"
-            fullWidth
-            autoComplete="profesion"
-            value={userData.profesion}
-            onChange={handleInputChange}
-          />
+    <div className="container-userinformation">
+      <div className="container-form-user">
+        <Typography variant="h6" gutterBottom>
+          Informacion del Usuario
+        </Typography>
+        <Grid container spacing={3}>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              required
+              id="profesion"
+              name="profesion"
+              label="Profesión"
+              fullWidth
+              autoComplete="profesion"
+              value={userData.profesion}
+              onChange={handleInputChange}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              required
+              id="email"
+              name="email"
+              label="Email"
+              fullWidth
+              autoComplete="email"
+              value={userData.email}
+              onChange={handleInputChange}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              required
+              id="nombreCompleto"
+              name="nombreCompleto"
+              label="Nombre Completo"
+              fullWidth
+              autoComplete="nombreCompleto"
+              value={userData.nombreCompleto}
+              onChange={handleInputChange}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              id="direccion"
+              name="direccion"
+              label="Dirección"
+              fullWidth
+              autoComplete="direccion"
+              value={userData.direccion}
+              onChange={handleInputChange}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              id="rni"
+              name="rni"
+              label="RNI"
+              fullWidth
+              autoComplete="rni"
+              value={userData.rni}
+              onChange={handleInputChange}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              required
+              id="telefono"
+              name="telefono"
+              label="Telefono/Celular"
+              fullWidth
+              autoComplete="telefono"
+              value={userData.telefono}
+              onChange={handleInputChange}
+            />
+          </Grid>
+          <div className="container-buttons-abono">
+            <Button type="submit" onClick={updateRegisterUserInformation} variant="outlined" color="secondary" style={{ margin: '5%' }}>Guardar Cambios</Button>
+            <Button type="submit" onClick={createRegisterUserInformation} variant="outlined" color="secondary" style={{ margin: '5%' }}>Crear Registro</Button>
+          </div>
         </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="email"
-            name="email"
-            label="Email"
-            fullWidth
-            autoComplete="email"
-            value={userData.email}
-            onChange={handleInputChange}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            required
-            id="nombreCompleto"
-            name="nombreCompleto"
-            label="Nombre Completo"
-            fullWidth
-            autoComplete="nombreCompleto"
-            value={userData.nombreCompleto}
-            onChange={handleInputChange}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            id="direccion"
-            name="direccion"
-            label="Dirección"
-            fullWidth
-            autoComplete="direccion"
-            value={userData.direccion}
-            onChange={handleInputChange}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            id="rni"
-            name="rni"
-            label="RNI"
-            fullWidth
-            autoComplete="rni"
-            value={userData.rni}
-            onChange={handleInputChange}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="telefono"
-            name="telefono"
-            label="Telefono/Celular"
-            fullWidth
-            autoComplete="telefono"
-            value={userData.telefono}
-            onChange={handleInputChange}
-          />
-        </Grid>
-        <div className="container-buttons-abono">
-          <Button type="submit" onClick={updateRegisterUserInformation} variant="outlined" color="secondary" style={{ margin: '5%' }}>Guardar Cambios</Button>
-          <Button type="submit" onClick={createRegisterUserInformation} variant="outlined" color="secondary" style={{ margin: '5%' }}>Crear Registro</Button>
-        </div>
-      </Grid>
-    </Fragment>
+      </div>
+    </div>
   );
 }
 

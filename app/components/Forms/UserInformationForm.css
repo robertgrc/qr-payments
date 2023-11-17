@@ -1,0 +1,17 @@
+.container-userinformation {
+    width: 70%;
+    /* Ocupa el 70% del ancho del contenedor padre */
+    margin: 0 auto;
+    /* Centra el contenedor horizontalmente */
+    background-color: #FFFFFF;
+    /* Fondo blanco */
+    padding: 20px;
+    /* Añade un espacio interno de 20px alrededor del contenido */
+    border-radius: 7px;
+}
+
+
+
+.container-form-user {
+    margin: 5%;
+}

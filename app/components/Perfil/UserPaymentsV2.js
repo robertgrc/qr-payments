@@ -111,7 +111,7 @@ const UserPaymentsV2 = () => {
     if (idUsuario) {
       fetchAbonosData();
     }
-  }, []);
+  }, [apiUrl, idUsuario, abonosData]);
 
   const handlePayAbono = async (abono) => {
     console.log(abono);
@@ -200,12 +200,6 @@ const UserPaymentsV2 = () => {
                 <div className="modal-content">
                   <span className="close" onClick={closeModal}>&times;</span>
                   <h2 id="simple-modal-title">Detalles del Abono</h2>
-                  <p id="simple-modal-description">
-                     Monto
-                  </p>
-                  <p id="simple-modal-description">
-                     Mes
-                  </p>
                   <img src={qrcodeImage} alt="Código QR" />
                   {/* Aquí puedes mostrar la imagen del código QR si la tienes */}
                   <TextField
