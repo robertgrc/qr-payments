@@ -21,9 +21,11 @@ const UserPaymentsV2 = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedAbono, setSelectedAbono] = useState(null);
   const [abonosData, setAbonosData] = useState([]);
-  const fechaInicioInicial = new Date(); // Fecha actual
-  fechaInicioInicial.setMonth(fechaInicioInicial.getMonth() - 7); // Restar 4 meses
-  const [fechaInicio, setFechaInicio] = useState(fechaInicioInicial); // Estado para la fecha inicial
+  //*------
+  const fechaCreacionUsuarioString = localStorage.getItem('FechaCreacionUsuario');
+  const fechaCreacionUsuario = new Date(fechaCreacionUsuarioString);
+  fechaCreacionUsuario.setMonth(fechaCreacionUsuario.getMonth() - 7); // Mostrar 7 meses hacia atras
+  const [fechaInicio, setFechaInicio] = useState(fechaCreacionUsuario); // Estado para la fecha inicial
   const [monto, setMonto] = useState('');
 
   useEffect(() => {
@@ -111,7 +113,7 @@ const UserPaymentsV2 = () => {
     if (idUsuario) {
       fetchAbonosData();
     }
-  }, [apiUrl, idUsuario, abonosData]);
+  }, [apiUrl, idUsuario]);
 
   const handlePayAbono = async (abono) => {
     console.log(abono);

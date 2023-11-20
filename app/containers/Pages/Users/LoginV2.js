@@ -36,6 +36,7 @@ function LoginV2(props) {
           localStorage.setItem('token', token);
           localStorage.setItem('IdUsuario', response.data.uid);
           localStorage.setItem('NombreUsuario', response.data.name);
+          localStorage.setItem('FechaCreacionUsuario', response.data.fechaCreacionUsuario);
 
           // window.location.href = '/app';
           if (response.data.ok) {
