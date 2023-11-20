@@ -180,7 +180,10 @@ const UserPaymentsV2 = () => {
                   {/* Evaluar la propiedad estado de abono.estadoPagos */}
                   {abono.estadoPagos.estado ? (<Chip label="Cancelado" color="secondary" />) : (<Chip label="Pendiente" color="primary" />)}
                 </td>
-                <td>{abono.fechaPago}</td>
+                <td>
+                  {/* Formatear la fecha antes de mostrarla */}
+                  {abono.fechaPago ? new Date(abono.fechaPago).toLocaleDateString() : ''}
+                </td>
                 <td>
                   {abono.estadoPagos.estado ? (
                     <Typography variant="body1">Pagos Al día</Typography>
