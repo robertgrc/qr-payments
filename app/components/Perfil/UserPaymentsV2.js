@@ -22,7 +22,7 @@ const UserPaymentsV2 = () => {
   const [selectedAbono, setSelectedAbono] = useState(null);
   const [abonosData, setAbonosData] = useState([]);
   const fechaInicioInicial = new Date(); // Fecha actual
-  fechaInicioInicial.setMonth(fechaInicioInicial.getMonth() - 4); // Restar 4 meses
+  fechaInicioInicial.setMonth(fechaInicioInicial.getMonth() - 7); // Restar 4 meses
   const [fechaInicio, setFechaInicio] = useState(fechaInicioInicial); // Estado para la fecha inicial
   const [monto, setMonto] = useState('');
 
@@ -208,7 +208,7 @@ const UserPaymentsV2 = () => {
                     value={monto}
                     onChange={(e) => setMonto(e.target.value)}
                   />
-                  <Button variant="contained" color="primary" onClick={handleCreatePayment}>
+                  <Button variant="contained" color="primary" onClick={handleCreatePayment} style={{ marginTop: '10px', paddingTop: '5px' }}>
                     Crear Pago
                   </Button>
                 </div>

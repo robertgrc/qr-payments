@@ -16,6 +16,9 @@ function RegisterV2(props) {
   const history = useHistory();
   const [valueForm, setValueForm] = useState(null);
 
+  // Obtener la fecha actual
+  const currentDate = new Date();
+
   const submitForm = values => {
     setTimeout(() => {
       setValueForm(values);
@@ -26,7 +29,8 @@ function RegisterV2(props) {
         name: values.get('name'),
         email: values.get('email'),
         password: values.get('password'),
-        rol: 'USER_ROLE'
+        rol: 'USER_ROLE',
+        fechaCreacionRegistro: currentDate,
       };
       // Realizar la solicitud POST con Axios
       qrApi.post('auth/new', postData)
