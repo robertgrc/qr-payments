@@ -31,11 +31,12 @@ function LoginV2(props) {
       qrApi.post('auth', postData)
         .then(response => {
           // Aquí puedes manejar la respuesta de la API si es necesario
-          // console.log('Response from API:', response.data);
+          console.log('Response from API:', response.data);
           const token = response.data.token;
           localStorage.setItem('token', token);
           localStorage.setItem('IdUsuario', response.data.uid);
           localStorage.setItem('NombreUsuario', response.data.name);
+          localStorage.setItem('Email', response.data.email);
           localStorage.setItem('FechaCreacionUsuario', response.data.fechaCreacionUsuario);
 
           // window.location.href = '/app';

@@ -89,6 +89,7 @@ function UserProfile(props) {
   }, [userData]);
 
   const username = localStorage.getItem('NombreUsuario');
+  const email = localStorage.getItem('Email');
   const title = brand.name + ' - Profile';
   const description = brand.desc;
   const { classes, fetchData } = props;
@@ -179,7 +180,7 @@ function UserProfile(props) {
           </Tabs>
         </Hidden>
       </AppBar>
-      {value === 0 && <TabContainer><AboutUser handleUserInformation={handleUserInformation} nombreUsuario={username} direccion={userData.direccion} email={userData.email} nombreCompleto={userData.nombreCompleto} profesion={userData.profesion} telefono={userData.telefono} rni={userData.rni} /></TabContainer>}
+      {value === 0 && <TabContainer><AboutUser handleUserInformation={handleUserInformation} username={username} direccion={userData.direccion} email={email} nombreCompleto={userData.nombreCompleto} profesion={userData.profesion} telefono={userData.telefono} rni={userData.rni} /></TabContainer>}
       {value === 1 && <TabContainer><UserPaymentsV2 /></TabContainer>}
     </div>
   );

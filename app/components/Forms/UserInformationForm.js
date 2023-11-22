@@ -1,29 +1,46 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable import/no-useless-path-segments */
 /* eslint-disable padded-blocks */
 /* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable eol-last */
 import React, { useEffect, useState } from 'react';
 import Grid from '@material-ui/core/Grid';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
+// import PropTypes from 'prop-types';
 import { Button } from '@material-ui/core';
+
 import qrApi from '../../api/ui/qrApi';
-// import { showSuccessMessage } from '../../helpers/messageHelpers';
-// import { showErrorMessage, showSuccessMessage } from '../../helpers/AlertMessages';
 import './UserInformationForm.css';
 
 function UserInformationForm() {
-
+  const username = localStorage.getItem('NombreUsuario');
+  const email = localStorage.getItem('Email');
+  console.log(email, username);
   const [userData, setUserData] = useState({
     userId: '',
     profesion: '',
-    email: '',
-    nombreCompleto: '',
+    email,
+    nombreCompleto: username,
     direccion: '',
     rni: '',
     telefono: ''
   });
+
+  function resetForm() {
+    setUserData({
+      userId: '',
+      profesion: '',
+      email: '',
+      nombreCompleto: '',
+      direccion: '',
+      rni: '',
+      telefono: ''
+    });
+  }
+
+  const history = useHistory();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -46,15 +63,18 @@ function UserInformationForm() {
       const response = await qrApi.post('/userInfo', requestData);
 
       if (response.status === 200) {
+        alert('Registro creado exitosamente');
         console.log('Registro creado exitosamente');
-        // showSuccessMessage('RegistroUserInfo creado con éxito');
-        // Puedes realizar otras acciones después de que el registro sea exitoso
+        resetForm();
+        history.push({
+          pathname: '/app/pages/perfil-usuario',
+        });
       } else {
+        alert('Error al crear el registro');
         console.error('Error al crear el registro');
       }
     } catch (error) {
       console.error('Error en la solicitud:', error);
-      // showErrorMessage('Error al crear RegistroUserInfo');
     }
   };
 
@@ -97,13 +117,15 @@ function UserInformationForm() {
         rni: userData.rni || '',
       });
       console.log(response.data);
-      // showSuccessMessage('Formulario actualizado con éxito');
+      alert('Registro userInfo actualizado con éxito');
       console.log('Registro userInfo actualizado con éxito');
-      // resetForm();
-      // history.push('../TablaCalendarioReservas');
+      resetForm();
+      history.push({
+        pathname: '/app/pages/perfil-usuario',
+      });
     } catch (error) {
       console.log(error);
-      // showErrorMessage('No se pudo actualizar el Formulario');
+      alert('No se pudo actualizar el userInfo');
       console.log('No se pudo actualizar el userInfo');
     }
   };
@@ -136,7 +158,8 @@ function UserInformationForm() {
               fullWidth
               autoComplete="email"
               value={userData.email}
-              onChange={handleInputChange}
+              // onChange={handleInputChange}
+              readOnly
             />
           </Grid>
           <Grid item xs={12}>
@@ -148,7 +171,8 @@ function UserInformationForm() {
               fullWidth
               autoComplete="nombreCompleto"
               value={userData.nombreCompleto}
-              onChange={handleInputChange}
+              // onChange={handleInputChange}
+              readOnly
             />
           </Grid>
           <Grid item xs={12}>

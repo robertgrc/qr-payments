@@ -1,4 +1,6 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable no-unused-vars */
+/* eslint-disable import/no-useless-path-segments */
 /* eslint-disable operator-linebreak */
 /* eslint-disable quotes */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
@@ -15,6 +17,7 @@ import Money from '@material-ui/icons/MonetizationOnRounded';
 import qrcodeImage from './images/qrcode.jpg';
 import './UserPayments.css';
 import qrApi from '../../api/ui/qrApi';
+import { showSuccessMessage, showErrorMessage } from './../../helpers/sweetalertMessages';
 
 const UserPaymentsV2 = () => {
 
@@ -27,6 +30,9 @@ const UserPaymentsV2 = () => {
   fechaCreacionUsuario.setMonth(fechaCreacionUsuario.getMonth() - 7); // Mostrar 7 meses hacia atras
   const [fechaInicio, setFechaInicio] = useState(fechaCreacionUsuario); // Estado para la fecha inicial
   const [monto, setMonto] = useState('');
+
+  // Mensajes de éxito y error
+  const [redibujarTabla, setRedibujarTabla] = useState(true);
 
   useEffect(() => {
     // Obtener la fecha actual
@@ -99,21 +105,22 @@ const UserPaymentsV2 = () => {
             });
 
             console.log('Abonos actualizados:', updatedAbonosData);
-
             return updatedAbonosData;
           });
         } else {
           console.error('La respuesta del servidor no es válida:', response.data);
+          showErrorMessage('La respuesta del servidor no es válida.');
         }
       } catch (error) {
         console.error('Error al obtener los abonos:', error);
+        // showErrorMessage('Error al obtener los abonos.');
       }
     };
 
     if (idUsuario) {
       fetchAbonosData();
     }
-  }, [apiUrl, idUsuario]);
+  }, [apiUrl, idUsuario, redibujarTabla]);
 
   const handlePayAbono = async (abono) => {
     console.log(abono);
@@ -147,16 +154,19 @@ const UserPaymentsV2 = () => {
 
       if (response.data.ok) {
         console.log('Pago guardado exitosamente');
+        showSuccessMessage('Pago guardado exitosamente');
+        setRedibujarTabla(!redibujarTabla);
       } else {
         console.error('Error al intentar guardar el pago:', response.status);
+        showErrorMessage('Error al intentar guardar el pago.');
       }
     } catch (error) {
       console.error('Error al intentar guardar el pago:', error);
+      showErrorMessage('Error al intentar guardar el pago.');
     }
     // Cerrar el modal después de guardar
     setIsModalOpen(false);
   };
-
 
   return (
     <div className="ContainerTablaAbonos">
@@ -225,5 +235,10 @@ const UserPaymentsV2 = () => {
     </div>
   );
 };
+
+// UserPaymentsV2.propTypes = {
+//   username: PropTypes.string.isRequired,
+//   email: PropTypes.string.isRequired,
+// };
 
 export default UserPaymentsV2;

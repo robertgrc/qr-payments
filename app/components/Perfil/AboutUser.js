@@ -15,14 +15,22 @@ import PropTypes from 'prop-types';
 import { Button } from '@material-ui/core';
 import PapperBlock from '../PapperBlock/PapperBlock';
 
-const AboutUser = ({ nombreCompleto, direccion, email, profesion, telefono, rni, handleUserInformation }) => (
+const AboutUser = ({ username, direccion, email, profesion, telefono, rni, handleUserInformation }) => (
 
   <div>
     {/* About Me */}
-    <PapperBlock title={nombreCompleto} icon="ion-ios-contact-outline" whiteBg noMargin desc="Informacion acerca de mi">
+    <PapperBlock title={username} icon="ion-ios-contact-outline" whiteBg noMargin desc="Informacion acerca de mi">
       <Button onClick={handleUserInformation} type="submit" variant="outlined" color="secondary" style={{ width: '20%', marginBottom: '1%' }}>Agregar Informacion</Button>
       <Divider />
       <List>
+        <ListItem>
+          <ListItemAvatar>
+            <Avatar>
+              <DateRange />
+            </Avatar>
+          </ListItemAvatar>
+          <ListItemText primary="Nombre de Usuario" secondary={username} />
+        </ListItem>
         <ListItem>
           <ListItemAvatar>
             <Avatar>
@@ -70,7 +78,7 @@ const AboutUser = ({ nombreCompleto, direccion, email, profesion, telefono, rni,
 );
 
 AboutUser.propTypes = {
-  nombreCompleto: PropTypes.string.isRequired,
+  username: PropTypes.string.isRequired,
   direccion: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
   telefono: PropTypes.string.isRequired,
