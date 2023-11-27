@@ -210,8 +210,27 @@ function UserInformationForm() {
             />
           </Grid>
           <div className="container-buttons-abono">
-            <Button type="submit" onClick={updateRegisterUserInformation} variant="outlined" color="secondary" style={{ margin: '5%' }}>Guardar Cambios</Button>
-            <Button type="submit" onClick={createRegisterUserInformation} variant="outlined" color="secondary" style={{ margin: '5%' }}>Crear Registro</Button>
+            {registroId ? (
+              <Button
+                type="submit"
+                onClick={updateRegisterUserInformation}
+                variant="outlined"
+                color="secondary"
+                style={{ margin: '5%' }}
+              >
+                Guardar Cambios
+              </Button>
+            ) : (
+              <Button
+                type="submit"
+                onClick={createRegisterUserInformation}
+                variant="outlined"
+                color="secondary"
+                style={{ margin: '5%' }}
+              >
+                Crear registro
+              </Button>
+            )}
           </div>
         </Grid>
       </div>

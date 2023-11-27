@@ -1,12 +1,13 @@
-import { Map, fromJS } from 'immutable';
-import { INIT } from '../constants/reduxFormConstants';
+/* eslint-disable quotes */
+import { Map, fromJS } from "immutable";
+import { INIT } from "../constants/reduxFormConstants";
 
 const initialState = {
   usersLogin: Map({
-    email: 'johndoe@mail.com',
-    password: '12345678',
-    remember: false
-  })
+    email: "rocko@gmail.com",
+    password: "1234567",
+    remember: false,
+  }),
 };
 const initialImmutableState = fromJS(initialState);
 export default function reducer(state = initialImmutableState, action = {}) {
