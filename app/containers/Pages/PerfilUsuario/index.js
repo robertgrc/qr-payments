@@ -27,6 +27,7 @@ import AboutUser from '../../../components/Perfil/AboutUser';
 import qrApi from '../../../api/ui/qrApi';
 import { useUser } from '../../context/UserContext';
 import UserPaymentsV2 from '../../../components/Perfil/UserPaymentsV2';
+import UserPayments from '../../../components/Perfil/UserPayments';
 
 
 function TabContainer(props) {
@@ -177,11 +178,13 @@ function UserProfile(props) {
           >
             <Tab icon={<AccountCircle />} label="USUARIO" />
             <Tab icon={<Payment />} label="PAGOSV2" />
+            <Tab icon={<Payment />} label="PAGOSV1" />
           </Tabs>
         </Hidden>
       </AppBar>
       {value === 0 && <TabContainer><AboutUser handleUserInformation={handleUserInformation} username={username} direccion={userData.direccion} email={email} nombreCompleto={userData.nombreCompleto} profesion={userData.profesion} telefono={userData.telefono} rni={userData.rni} /></TabContainer>}
       {value === 1 && <TabContainer><UserPaymentsV2 /></TabContainer>}
+      {value === 2 && <TabContainer><UserPayments /></TabContainer>}
     </div>
   );
 }

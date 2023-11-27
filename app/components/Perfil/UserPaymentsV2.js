@@ -168,6 +168,10 @@ const UserPaymentsV2 = () => {
     setIsModalOpen(false);
   };
 
+  const handleGenerateQr = () => {
+    console.log('generarQR');
+  };
+
   return (
     <div className="ContainerTablaAbonos">
       <div className="">
@@ -235,10 +239,5 @@ const UserPaymentsV2 = () => {
     </div>
   );
 };
-
-// UserPaymentsV2.propTypes = {
-//   username: PropTypes.string.isRequired,
-//   email: PropTypes.string.isRequired,
-// };
 
 export default UserPaymentsV2;

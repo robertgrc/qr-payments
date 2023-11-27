@@ -87,9 +87,9 @@ function Cover(props) {
         <Typography className={classes.subheading} gutterBottom>
           {desc}
         </Typography>
-        <Button className={classes.button} size="large" variant="contained" color="secondary" onClick={modificarInformacionUsuario}>
-          Add Info
-        </Button>
+        {/* <Button className={classes.button} size="large" variant="contained" color="secondary" onClick={modificarInformacionUsuario}>
+          Agregar Informacion
+        </Button> */}
       </div>
     </div>
   );
