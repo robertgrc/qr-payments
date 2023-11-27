@@ -25,6 +25,8 @@ const UserPayments = () => {
   const [selectedAbono, setSelectedAbono] = useState(null);
   const [abonosData, setAbonosData] = useState([]);
   const [imageURL, setImageURL] = useState('');
+
+
   //*------
   const fechaCreacionUsuarioString = localStorage.getItem('FechaCreacionUsuario');
   const fechaCreacionUsuario = new Date(fechaCreacionUsuarioString);
@@ -122,12 +124,6 @@ const UserPayments = () => {
       fetchAbonosData();
     }
   }, [apiUrl, idUsuario, redibujarTabla]);
-
-  // const handlePayAbono = async (abono) => {
-  //   console.log('abonoversion1', abono);
-  //   setSelectedAbono(abono);
-  //   setIsModalOpen(true);
-  // };
 
   const handlePayAbono = async (abono) => {
     try {

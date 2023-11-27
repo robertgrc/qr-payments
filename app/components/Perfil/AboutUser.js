@@ -6,11 +6,10 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
 import LocalPhone from '@material-ui/icons/LocalPhone';
-import DateRange from '@material-ui/icons/DateRange';
 import LocationOn from '@material-ui/icons/LocationOn';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Divider from '@material-ui/core/Divider';
-import { PersonPin } from '@material-ui/icons';
+import { Code, Email, VerifiedUser, Work } from '@material-ui/icons';
 import PropTypes from 'prop-types';
 import { Button } from '@material-ui/core';
 import PapperBlock from '../PapperBlock/PapperBlock';
@@ -26,7 +25,7 @@ const AboutUser = ({ username, direccion, email, profesion, telefono, rni, handl
         <ListItem>
           <ListItemAvatar>
             <Avatar>
-              <DateRange />
+              <VerifiedUser />
             </Avatar>
           </ListItemAvatar>
           <ListItemText primary="Nombre de Usuario" secondary={username} />
@@ -34,7 +33,7 @@ const AboutUser = ({ username, direccion, email, profesion, telefono, rni, handl
         <ListItem>
           <ListItemAvatar>
             <Avatar>
-              <DateRange />
+              <Work />
             </Avatar>
           </ListItemAvatar>
           <ListItemText primary="Profesión" secondary={profesion} />
@@ -42,7 +41,7 @@ const AboutUser = ({ username, direccion, email, profesion, telefono, rni, handl
         <ListItem>
           <ListItemAvatar>
             <Avatar>
-              <PersonPin />
+              <Email />
             </Avatar>
           </ListItemAvatar>
           <ListItemText primary="Email" secondary={email} />
@@ -66,7 +65,7 @@ const AboutUser = ({ username, direccion, email, profesion, telefono, rni, handl
         <ListItem>
           <ListItemAvatar>
             <Avatar>
-              <LocationOn />
+              <Code />
             </Avatar>
           </ListItemAvatar>
           <ListItemText primary="RNI" secondary={rni} />
